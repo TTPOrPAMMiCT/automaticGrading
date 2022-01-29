@@ -3,12 +3,13 @@ package service.initializeTable;
 import dao.gradeDao.GradeDaoImpl;
 import dao.studentDao.StudentDaoImpl;
 import entity.model.Student;
+import entity.view.DeleteStudentView;
 import entity.view.StudentView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class InitializeStudentView {
+public class InitializeStudent {
 
     public List<StudentView> initializeStudentView(int idGroup) {
         List<StudentView> studentViewList = new ArrayList<>();
@@ -20,6 +21,16 @@ public class InitializeStudentView {
                     studentList.get(i),
                     gradeDao.findGrade(studentList.get(i).getId()),
                     i));
+        }
+        return studentViewList;
+    }
+
+    public List<DeleteStudentView> initializeDeleteStudentView(int idGroup) {
+        List<DeleteStudentView> studentViewList = new ArrayList<>();
+        StudentDaoImpl studentDao = new StudentDaoImpl();
+        List<Student> studentList = studentDao.findStudents(idGroup);
+        for (int i = 0; i < studentList.size(); i++) {
+            studentViewList.add(new DeleteStudentView(studentList.get(i)));
         }
         return studentViewList;
     }

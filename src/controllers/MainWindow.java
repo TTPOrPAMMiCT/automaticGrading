@@ -1,10 +1,8 @@
 package controllers;
 
 import dao.gradeDao.GradeDaoImpl;
-import dao.studentDao.StudentDaoImpl;
 import dao.studentGroupDao.StudentGroupDao;
 import dao.studentGroupDao.StudentGroupDaoImpl;
-import entity.model.Grade;
 import entity.model.StudentGroup;
 import entity.view.StudentView;
 import javafx.collections.FXCollections;
@@ -21,11 +19,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import service.initializeTable.InitializeStudentView;
+import service.initializeTable.InitializeStudent;
 import service.searchInString.SearchInString;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainWindow extends ConfigsControllers {
@@ -52,8 +49,10 @@ public class MainWindow extends ConfigsControllers {
     @FXML
     private Button addStudent;
 
+    private InitializeStudent init = new InitializeStudent();
+
     @Override
-    public void createWindow(ActionEvent actionEvent) throws IOException {
+    public void createWindow(ActionEvent actionEvent)  {
         Stage stage = new Stage();
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/mainWindow.fxml"));
@@ -73,7 +72,7 @@ public class MainWindow extends ConfigsControllers {
     }
 
     public void initTable(int id) {
-        InitializeStudentView init = new InitializeStudentView();
+        InitializeStudent init = new InitializeStudent();
 
         idLine.setCellValueFactory(new PropertyValueFactory<>("idLine"));
 
@@ -106,7 +105,6 @@ public class MainWindow extends ConfigsControllers {
     }
 
     public void editGrade(String newGradeList, StudentView student) {
-        InitializeStudentView init = new InitializeStudentView();
         SearchInString search = new SearchInString();
         GradeDaoImpl gradeDao = new GradeDaoImpl();
         List<Integer> newGrade = search.getListSymbolsAndParseInt(newGradeList);
@@ -124,6 +122,16 @@ public class MainWindow extends ConfigsControllers {
             nameGroup.setText(choiceGroup.getValue().getNameGroup());
             initTable(choiceGroup.getValue().getId());
         });
+    }
+
+    @FXML
+    void editGroups(ActionEvent event) {
+        EditListStudent editListStudent = new EditListStudent();
+        try {
+            editListStudent.createWindow(new ActionEvent());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
