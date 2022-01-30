@@ -42,8 +42,7 @@ public class GradeDaoImpl extends GradeDao{
     @Override
     public void editGrade(Student student, List<Integer> gradeList)  {
         try {
-            Statement statement = connectDB.returnConnection().createStatement();
-            int countDelete = statement.executeUpdate("DELETE FROM grade WHERE studentId = " + student.getId());
+            deleteFullGrades(student.getId());
 
             PreparedStatement preparedStatement = connectDB
                     .returnConnection()
@@ -59,4 +58,14 @@ public class GradeDaoImpl extends GradeDao{
         }
     }
 
+    @Override
+    public void deleteFullGrades(int idStudent) {
+        Statement statement = null;
+        try {
+            statement = connectDB.returnConnection().createStatement();
+            int countDelete = statement.executeUpdate("DELETE FROM grade WHERE studentId = " + idStudent + ";");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

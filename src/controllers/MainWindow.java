@@ -46,10 +46,10 @@ public class MainWindow extends ConfigsControllers {
     private TableColumn<StudentView, Integer> averageScore;
     @FXML
     private Button listGroup;
-    @FXML
-    private Button addStudent;
 
     private InitializeStudent init = new InitializeStudent();
+    ObservableList<StudentView> studentViews;
+    private int id;
 
     @Override
     public void createWindow(ActionEvent actionEvent)  {
@@ -67,11 +67,16 @@ public class MainWindow extends ConfigsControllers {
 
     @FXML
     private void initialize() {
+        initListStudents();
         initChoiceGroup();
         editTable();
     }
 
-    public void initTable(int id) {
+    private void initListStudents() {
+
+    }
+
+    public void initTable() {
         InitializeStudent init = new InitializeStudent();
 
         idLine.setCellValueFactory(new PropertyValueFactory<>("idLine"));
@@ -110,7 +115,6 @@ public class MainWindow extends ConfigsControllers {
         List<Integer> newGrade = search.getListSymbolsAndParseInt(newGradeList);
         if (student.getGradeList().size() != newGrade.size()) {
             gradeDao.editGrade(student, newGrade);
-            table.setItems(FXCollections.observableList(init.initializeStudentView(choiceGroup.getValue().getId())));
         }
     }
 
@@ -120,7 +124,7 @@ public class MainWindow extends ConfigsControllers {
         choiceGroup.setItems(groups);
         choiceGroup.setOnAction(actionEvent -> {
             nameGroup.setText(choiceGroup.getValue().getNameGroup());
-            initTable(choiceGroup.getValue().getId());
+            id = choiceGroup.getValue().getId();
         });
     }
 
@@ -128,6 +132,7 @@ public class MainWindow extends ConfigsControllers {
     void editGroups(ActionEvent event) {
         EditListStudent editListStudent = new EditListStudent();
         try {
+            editListStudent.setId(choiceGroup.getValue().getId());
             editListStudent.createWindow(new ActionEvent());
         } catch (IOException e) {
             e.printStackTrace();

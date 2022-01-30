@@ -1,11 +1,18 @@
 package entity.view;
 
+import dao.gradeDao.GradeDao;
+import dao.gradeDao.GradeDaoImpl;
+import dao.studentDao.StudentDao;
+import dao.studentDao.StudentDaoImpl;
 import entity.model.Grade;
 import entity.model.Student;
+import javafx.scene.control.Button;
 
+import java.awt.event.ActionEvent;
 import java.util.List;
 
 public class StudentView extends Student {
+    Button deleteStudent = new Button("удалить");
     int idLine;
     List<Grade> gradeList;
     int averageScore;
@@ -26,7 +33,18 @@ public class StudentView extends Student {
     public StudentView() {
     }
 
-    public void calculatedAverageScore(List<Grade> gradeList) {
+    //////////////////////////////////////REALISE METHOD///////////////////////////////////////////////
+
+    private void clickDeleteStudent() {
+        deleteStudent.setOnAction(event -> {
+            StudentDao studentDao = new StudentDaoImpl();
+            studentDao.deleteStudent(getId());
+            GradeDao gradeDao = new GradeDaoImpl();
+            gradeDao.deleteFullGrades(getId());
+        });
+    }
+
+    private void calculatedAverageScore(List<Grade> gradeList) {
         double average = 0.0;
         for (int i = 0; i < gradeList.size(); i++) {
             average += gradeList.get(i).getGrade();
@@ -34,10 +52,12 @@ public class StudentView extends Student {
         this.averageScore = (int) Math.round(average / gradeList.size());
     }
 
-    public void gradesToString(List list) {
+    private void gradesToString(List list) {
         String convertString = list.toString();
         this.gradesString = convertString.replaceAll("[\\[\\]]", "");;
     }
+
+    ///////////////////////////////////////Getters and Setters///////////////////////////////////////
 
     public int getAverageScore() {
         return averageScore;
