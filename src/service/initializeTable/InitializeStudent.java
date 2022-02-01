@@ -2,6 +2,7 @@ package service.initializeTable;
 
 import dao.gradeDao.GradeDaoImpl;
 import dao.studentDao.StudentDaoImpl;
+import dao.studentGroupDao.StudentGroupDaoImpl;
 import entity.model.Student;
 import entity.view.StudentView;
 
@@ -15,13 +16,22 @@ public class InitializeStudent {
         StudentDaoImpl studentDao = new StudentDaoImpl();
         GradeDaoImpl gradeDao = new GradeDaoImpl();
         List<Student> studentList = studentDao.findStudents();
+        StudentGroupDaoImpl studentGroupDaoDaoImpl = new StudentGroupDaoImpl();
+        int line = 1;
         for (int i = 0; i < studentList.size(); i++) {
             studentViewList.add(new StudentView(
                     studentList.get(i),
                     gradeDao.findGrade(studentList.get(i).getId()),
-                    i));
+                    line,
+                    studentGroupDaoDaoImpl.findGroupFromId(studentList.get(i).getIdGroup())));
+            line++;
         }
         return studentViewList;
+    }
+
+
+    public void insertStudentDataBase(List<StudentView> studentViews) {
+        
     }
 
 

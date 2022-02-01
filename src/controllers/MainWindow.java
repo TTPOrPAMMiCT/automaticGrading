@@ -3,6 +3,7 @@ package controllers;
 import dao.gradeDao.GradeDaoImpl;
 import dao.studentGroupDao.StudentGroupDao;
 import dao.studentGroupDao.StudentGroupDaoImpl;
+import entity.model.Grade;
 import entity.model.StudentGroup;
 import entity.view.StudentView;
 import javafx.collections.FXCollections;
@@ -15,7 +16,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
-/*import javafx.scene.control.cell.TextFieldTableCell;*/
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -70,14 +70,14 @@ public class MainWindow extends ConfigsControllers {
         initListStudents();
         initChoiceGroup();
         editTable();
+        initTable();
     }
 
     private void initListStudents() {
-
+        studentViews = FXCollections.observableList(init.initializeStudentView());
     }
 
     public void initTable() {
-        InitializeStudent init = new InitializeStudent();
 
         idLine.setCellValueFactory(new PropertyValueFactory<>("idLine"));
 
@@ -91,11 +91,11 @@ public class MainWindow extends ConfigsControllers {
 
         averageScore.setCellValueFactory(new PropertyValueFactory<>("averageScore"));
 
-        table.setItems(FXCollections.observableList(init.initializeStudentView(id)));
+        table.setItems(studentViews);
     }
 
     public void editTable() {
-        grades.setCellFactory(TextFieldTableCell.forTableColumn());
+       grades.setCellFactory(TextFieldTableCell.forTableColumn());
         grades.setOnEditCommit(event -> {
             StudentView student = event
                     .getTableView()
@@ -107,15 +107,28 @@ public class MainWindow extends ConfigsControllers {
                     student
             );
         });
+
+        name.setCellFactory(TextFieldTableCell.forTableColumn());
+        name.setOnEditCommit(event -> {
+             event.getTableView().getItems().get(event.getTablePosition().getRow()).setName(event.getNewValue());
+        });
+
+
+        surname.setCellFactory(TextFieldTableCell.forTableColumn());
+        name.setOnEditCommit(event -> {});
+
+        middleName.setCellFactory(TextFieldTableCell.forTableColumn());
+        middleName.setOnEditCommit(event -> {});
     }
 
-    public void editGrade(String newGradeList, StudentView student) {
+    public List<Grade> editGrade(String newGradeList, StudentView student) {
         SearchInString search = new SearchInString();
         GradeDaoImpl gradeDao = new GradeDaoImpl();
         List<Integer> newGrade = search.getListSymbolsAndParseInt(newGradeList);
         if (student.getGradeList().size() != newGrade.size()) {
-            gradeDao.editGrade(student, newGrade);
+
         }
+        return null;
     }
 
     public void initChoiceGroup() {
@@ -124,20 +137,19 @@ public class MainWindow extends ConfigsControllers {
         choiceGroup.setItems(groups);
         choiceGroup.setOnAction(actionEvent -> {
             nameGroup.setText(choiceGroup.getValue().getNameGroup());
-            id = choiceGroup.getValue().getId();
         });
     }
 
-    @FXML
-    void editGroups(ActionEvent event) {
-        EditListStudent editListStudent = new EditListStudent();
+
+    public void editListStudent(ActionEvent actionEvent) {
+        System.out.println(studentViews.get(0));
+    }
+        /*EditListStudent editListStudent = new EditListStudent();
+        editListStudent.setStudentViews(studentViews);
         try {
-            editListStudent.setId(choiceGroup.getValue().getId());
             editListStudent.createWindow(new ActionEvent());
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-
+    }*/
 }

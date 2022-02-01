@@ -6,8 +6,11 @@ import dao.studentDao.StudentDao;
 import dao.studentDao.StudentDaoImpl;
 import entity.model.Grade;
 import entity.model.Student;
+import entity.model.StudentGroup;
 import javafx.scene.control.Button;
+import javafx.scene.control.cell.TextFieldTableCell;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
@@ -17,8 +20,9 @@ public class StudentView extends Student {
     List<Grade> gradeList;
     int averageScore;
     String gradesString;
+    StudentGroup studentGroup;
 
-    public StudentView(Student student, List<Grade> grade, int idLine) {
+    public StudentView(Student student, List<Grade> grade, int idLine, StudentGroup group) {
         setId(student.getId());
         setName(student.getName());
         setSurname(student.getSurname());
@@ -27,11 +31,17 @@ public class StudentView extends Student {
         setGradeList(grade);
         setIdLine(idLine);
         calculatedAverageScore(grade);
+        setStudentGroup(group);
         gradesToString(gradeList);
     }
 
     public StudentView() {
     }
+
+    /////////////////////////////////////TextField/////////////////////////////////////////////////////
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////////REALISE METHOD///////////////////////////////////////////////
 
@@ -58,6 +68,23 @@ public class StudentView extends Student {
     }
 
     ///////////////////////////////////////Getters and Setters///////////////////////////////////////
+
+
+    public Button getDeleteStudent() {
+        return deleteStudent;
+    }
+
+    public void setDeleteStudent(Button deleteStudent) {
+        this.deleteStudent = deleteStudent;
+    }
+
+    public StudentGroup getStudentGroup() {
+        return studentGroup;
+    }
+
+    public void setStudentGroup(StudentGroup studentGroup) {
+        this.studentGroup = studentGroup;
+    }
 
     public int getAverageScore() {
         return averageScore;

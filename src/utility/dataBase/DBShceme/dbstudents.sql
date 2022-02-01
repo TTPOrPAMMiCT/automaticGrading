@@ -75,7 +75,7 @@ UNLOCK TABLES;
 -- Table structure for table `studentGroup`
 --
 
-DROP TABLE IF EXISTS `studentGroup`;
+DROP TABLE IF EXISTS `student_group`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `studentGroup` (
