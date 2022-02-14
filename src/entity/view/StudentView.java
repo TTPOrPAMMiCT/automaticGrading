@@ -7,11 +7,12 @@ import dao.studentDao.StudentDaoImpl;
 import entity.model.Grade;
 import entity.model.Student;
 import entity.model.StudentGroup;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.cell.TextFieldTableCell;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.util.List;
 
 public class StudentView extends Student {
@@ -45,14 +46,6 @@ public class StudentView extends Student {
 
     //////////////////////////////////////REALISE METHOD///////////////////////////////////////////////
 
-    private void clickDeleteStudent() {
-        deleteStudent.setOnAction(event -> {
-            StudentDao studentDao = new StudentDaoImpl();
-            studentDao.deleteStudent(getId());
-            GradeDao gradeDao = new GradeDaoImpl();
-            gradeDao.deleteFullGrades(getId());
-        });
-    }
 
     private void calculatedAverageScore(List<Grade> gradeList) {
         double average = 0.0;
