@@ -3,6 +3,7 @@ package controllers;
 import dao.gradeDao.GradeDaoImpl;
 import dao.studentGroupDao.StudentGroupDao;
 import dao.studentGroupDao.StudentGroupDaoImpl;
+import entity.model.Grade;
 import entity.model.StudentGroup;
 import entity.view.StudentView;
 import javafx.collections.FXCollections;
@@ -15,7 +16,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
-/*import javafx.scene.control.cell.TextFieldTableCell;*/
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -46,8 +46,6 @@ public class MainWindow extends ConfigsControllers {
     private TableColumn<StudentView, Integer> averageScore;
     @FXML
     private Button listGroup;
-    @FXML
-    private Button addStudent;
 
     private InitializeStudent init = new InitializeStudent();
 
@@ -69,11 +67,16 @@ public class MainWindow extends ConfigsControllers {
     private void initialize() {
         initChoiceGroup();
         editTable();
+        initTable();
+        tableContent();
     }
 
-    public void initTable(int id) {
-        InitializeStudent init = new InitializeStudent();
+    private void tableContent() {
+        ObservableList<StudentView> studentViews = FXCollections.observableList(init.initializeStudentView());
+        table.setItems(studentViews);
+    }
 
+    public void initTable() {
         idLine.setCellValueFactory(new PropertyValueFactory<>("idLine"));
 
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -85,12 +88,10 @@ public class MainWindow extends ConfigsControllers {
         grades.setCellValueFactory(new PropertyValueFactory<>("gradesString"));
 
         averageScore.setCellValueFactory(new PropertyValueFactory<>("averageScore"));
-
-        table.setItems(FXCollections.observableList(init.initializeStudentView(id)));
     }
 
     public void editTable() {
-        grades.setCellFactory(TextFieldTableCell.forTableColumn());
+       grades.setCellFactory(TextFieldTableCell.forTableColumn());
         grades.setOnEditCommit(event -> {
             StudentView student = event
                     .getTableView()
@@ -102,6 +103,33 @@ public class MainWindow extends ConfigsControllers {
                     student
             );
         });
+
+        name.setCellFactory(TextFieldTableCell.forTableColumn());
+        name.setOnEditCommit(event -> {
+            StudentView studentView = event
+                    .getTableView()
+                    .getItems()
+                    .get(event.getTablePosition().getRow());
+            studentView.setName(event.getNewValue());
+        });
+
+        surname.setCellFactory(TextFieldTableCell.forTableColumn());
+        surname.setOnEditCommit(event -> {
+            StudentView studentView = event
+                    .getTableView()
+                    .getItems()
+                    .get(event.getTablePosition().getRow());
+            studentView.setSurname(event.getNewValue());
+        });
+
+        middleName.setCellFactory(TextFieldTableCell.forTableColumn());
+        middleName.setOnEditCommit(event -> {
+            StudentView studentView = event
+                    .getTableView()
+                    .getItems()
+                    .get(event.getTablePosition().getRow());
+            studentView.setMiddleName(event.getNewValue());
+        });
     }
 
     public void editGrade(String newGradeList, StudentView student) {
@@ -109,9 +137,9 @@ public class MainWindow extends ConfigsControllers {
         GradeDaoImpl gradeDao = new GradeDaoImpl();
         List<Integer> newGrade = search.getListSymbolsAndParseInt(newGradeList);
         if (student.getGradeList().size() != newGrade.size()) {
-            gradeDao.editGrade(student, newGrade);
-            table.setItems(FXCollections.observableList(init.initializeStudentView(choiceGroup.getValue().getId())));
+            gradeDao.editGrade(student, search.getListSymbolsAndParseInt(newGradeList));
         }
+        tableContent();
     }
 
     public void initChoiceGroup() {
@@ -120,12 +148,11 @@ public class MainWindow extends ConfigsControllers {
         choiceGroup.setItems(groups);
         choiceGroup.setOnAction(actionEvent -> {
             nameGroup.setText(choiceGroup.getValue().getNameGroup());
-            initTable(choiceGroup.getValue().getId());
         });
     }
 
-    @FXML
-    void editGroups(ActionEvent event) {
+
+    public void editListStudent(ActionEvent actionEvent) {
         EditListStudent editListStudent = new EditListStudent();
         try {
             editListStudent.createWindow(new ActionEvent());
@@ -133,6 +160,4 @@ public class MainWindow extends ConfigsControllers {
             e.printStackTrace();
         }
     }
-
-
 }

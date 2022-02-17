@@ -1,10 +1,7 @@
 package controllers;
 
-import dao.studentGroupDao.StudentGroupDao;
-import dao.studentGroupDao.StudentGroupDaoImpl;
 import entity.model.StudentGroup;
-import entity.view.DeleteStudentView;
-import javafx.collections.FXCollections;
+import entity.view.StudentView;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,25 +14,31 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import service.initializeTable.InitializeStudent;
+
 import java.io.IOException;
 
-public class EditListStudent extends ConfigsControllers {
+public class EditListStudent extends  ConfigsControllers {
 
     @FXML
-    private TableView<DeleteStudentView> table;
+    private TableView<StudentView> table;
 
     @FXML
-    private TableColumn<DeleteStudentView, Button> choice;
+    private TableColumn<StudentView, Button> choice;
 
     @FXML
-    private TableColumn<DeleteStudentView, String> surname;
+    private TableColumn<StudentView, String> surname;
 
     @FXML
-    private TableColumn<DeleteStudentView, String> name;
+    private TableColumn<StudentView, String> name;
 
     @FXML
-    private TableColumn<DeleteStudentView, String> middleName;
+    private TableColumn<StudentView, String> middleName;
+
+    @FXML
+    private TableColumn<StudentView, String> group;
+
+    @FXML
+    private Button addStudent;
 
     @FXML
     private Button exit;
@@ -43,8 +46,59 @@ public class EditListStudent extends ConfigsControllers {
     @FXML
     private ChoiceBox<StudentGroup> choiceGroup;
 
-    private InitializeStudent initialize = new InitializeStudent();
-    private ObservableList<DeleteStudentView> studentViews;
+    @FXML
+    private Button addGroup;
+
+    private ObservableList<StudentView> studentViews;
+
+
+    @FXML
+    private void initialize() {
+
+    }
+
+    @FXML
+    void clickAddGroup(ActionEvent event) {
+
+    }
+
+    @FXML
+    void clickAddStudent(ActionEvent event) {
+        AddStudent addStudent = new AddStudent();
+        addStudent.createWindow(new ActionEvent());
+    }
+
+    @FXML
+    void exit(ActionEvent event) {
+
+    }
+
+    private void initTable() {
+        table.setItems(studentViews);
+
+        choice.setCellValueFactory(new PropertyValueFactory<>(""));
+
+        surname.setCellValueFactory(new PropertyValueFactory<>("surname"));
+
+        name.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        middleName.setCellValueFactory(new PropertyValueFactory<>("middleName"));
+
+    }
+
+
+    ////////////////////////////////////get set /////////////////////////////////
+
+    public ObservableList<StudentView> getStudentViews() {
+        return studentViews;
+    }
+
+    public void setStudentViews(ObservableList<StudentView> studentViews) {
+        this.studentViews = studentViews;
+    }
+
+    /////////////////////////////////////window settings///////////////////////////
+
 
     @Override
     public void createWindow(ActionEvent actionEvent) throws IOException {
@@ -55,46 +109,8 @@ public class EditListStudent extends ConfigsControllers {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        stage.setTitle("_EditStudent_");
+        stage.setTitle("_MainWindow_");
         stage.centerOnScreen();
         stage.show();
     }
-
-    @FXML
-    private void initialize() {
-        initChoiceGroup();
-    }
-
-    public void initTable(int idGroup) {
-        studentViews = FXCollections.observableList(initialize.initializeDeleteStudentView(idGroup));
-        table.setItems(studentViews);
-        table.setEditable(true);
-
-        choice.setCellValueFactory(new PropertyValueFactory<>("checkStudent"));
-
-        surname.setCellValueFactory(new PropertyValueFactory<>("surname"));
-
-        name.setCellValueFactory(new PropertyValueFactory<>("name"));
-
-        middleName.setCellValueFactory(new PropertyValueFactory<>("middleName"));
-        System.out.println(studentViews);
-
-    }
-
-    public void initChoiceGroup() {
-        StudentGroupDao dao = new StudentGroupDaoImpl();
-        ObservableList<StudentGroup> groups = FXCollections.observableList(dao.findGroup());
-        choiceGroup.setItems(groups);
-        choice.setText("выбор группы");
-        choiceGroup.setOnAction(actionEvent -> {
-            initTable(choiceGroup.getValue().getId());
-        });
-    }
-
-    @FXML
-    void exit(ActionEvent event) {
-
-    }
-
-
 }

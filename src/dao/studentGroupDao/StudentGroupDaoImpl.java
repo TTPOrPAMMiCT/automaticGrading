@@ -16,7 +16,7 @@ public class StudentGroupDaoImpl extends StudentGroupDao{
     public List findGroup() {
         List groupList = new ArrayList();
         try {
-            String url = "select * from studentGroup";
+            String url = "select * from student_group";
             Statement statement = connectDB
                     .returnConnection()
                     .createStatement();
@@ -32,4 +32,30 @@ public class StudentGroupDaoImpl extends StudentGroupDao{
         }
         return groupList;
     }
+
+    @Override
+    public StudentGroup findGroupFromId(int id) {
+        StudentGroup studentGroup = new StudentGroup();
+        try {
+            String url = "select * from student_group where id = " + id + ";";
+            Statement statement = connectDB
+                    .returnConnection()
+                    .createStatement();
+            ResultSet resultSet = statement.executeQuery(url);
+            while (resultSet.next()) {
+                studentGroup.setId(resultSet.getInt(1));
+                studentGroup.setNameGroup(resultSet.getString(2));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println(studentGroup);
+        return studentGroup;
+    }
+
+    /*public static void main(String[] args) {
+        StudentGroupDaoImpl studentGroupDao = new StudentGroupDaoImpl();
+        studentGroupDao.findGroupFromId(0);
+    }*/
 }
+

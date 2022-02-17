@@ -8,5 +8,6 @@ import entity.view.StudentView;
 import java.util.List;
 
 public abstract class StudentDao {
-    public abstract List<Student> findStudents(int idGroup);
+    public abstract List<Student> findStudents();
+    public abstract void deleteStudent(int idStudent);
 }

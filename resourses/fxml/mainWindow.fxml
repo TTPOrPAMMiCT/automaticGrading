@@ -16,8 +16,7 @@
             </font>
         </Text>
 
-        <Button fx:id="listGroup" layoutX="14.0" layoutY="96.0" mnemonicParsing="false" onAction="#editGroups" prefHeight="30.0" prefWidth="275.0" text="редактировать группы" />
-        <Button fx:id="addStudent" layoutX="15.0" layoutY="133.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="275.0" text="добавить студента" />
+        <Button fx:id="listGroup" layoutX="14.0" layoutY="96.0" mnemonicParsing="false" onAction="#editListStudent" prefHeight="30.0" prefWidth="275.0" text="редактировать группы" />
       <ComboBox fx:id="choiceGroup" layoutX="77.0" layoutY="171.0" prefWidth="150.0" />
         <TableView fx:id="table" cache="true" editable="true" fixedCellSize="0.0" layoutX="300.0" layoutY="96.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="660.0" prefWidth="975.0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="96.0">
             <columns>

@@ -1,17 +1,29 @@
 package entity.view;
 
+import dao.gradeDao.GradeDao;
+import dao.gradeDao.GradeDaoImpl;
+import dao.studentDao.StudentDao;
+import dao.studentDao.StudentDaoImpl;
 import entity.model.Grade;
 import entity.model.Student;
+import entity.model.StudentGroup;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Button;
+import javafx.scene.control.cell.TextFieldTableCell;
 
+import java.awt.*;
 import java.util.List;
 
 public class StudentView extends Student {
+    Button deleteStudent = new Button("удалить");
     int idLine;
     List<Grade> gradeList;
     int averageScore;
     String gradesString;
+    StudentGroup studentGroup;
 
-    public StudentView(Student student, List<Grade> grade, int idLine) {
+    public StudentView(Student student, List<Grade> grade, int idLine, StudentGroup group) {
         setId(student.getId());
         setName(student.getName());
         setSurname(student.getSurname());
@@ -20,13 +32,22 @@ public class StudentView extends Student {
         setGradeList(grade);
         setIdLine(idLine);
         calculatedAverageScore(grade);
+        setStudentGroup(group);
         gradesToString(gradeList);
     }
 
     public StudentView() {
     }
 
-    public void calculatedAverageScore(List<Grade> gradeList) {
+    /////////////////////////////////////TextField/////////////////////////////////////////////////////
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //////////////////////////////////////REALISE METHOD///////////////////////////////////////////////
+
+
+    private void calculatedAverageScore(List<Grade> gradeList) {
         double average = 0.0;
         for (int i = 0; i < gradeList.size(); i++) {
             average += gradeList.get(i).getGrade();
@@ -34,9 +55,28 @@ public class StudentView extends Student {
         this.averageScore = (int) Math.round(average / gradeList.size());
     }
 
-    public void gradesToString(List list) {
+    private void gradesToString(List list) {
         String convertString = list.toString();
         this.gradesString = convertString.replaceAll("[\\[\\]]", "");;
+    }
+
+    ///////////////////////////////////////Getters and Setters///////////////////////////////////////
+
+
+    public Button getDeleteStudent() {
+        return deleteStudent;
+    }
+
+    public void setDeleteStudent(Button deleteStudent) {
+        this.deleteStudent = deleteStudent;
+    }
+
+    public StudentGroup getStudentGroup() {
+        return studentGroup;
+    }
+
+    public void setStudentGroup(StudentGroup studentGroup) {
+        this.studentGroup = studentGroup;
     }
 
     public int getAverageScore() {
