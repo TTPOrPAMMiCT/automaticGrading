@@ -78,6 +78,18 @@ public class StudentDaoImpl extends StudentDao {
     }
 
     @Override
+    public void deleteStudentFromGroup(StudentGroup studentGroup) {
+        Statement statement = null;
+        try {
+            statement = connectDB.returnConnection().createStatement();
+            int countDelete = statement.executeUpdate("DELETE FROM student WHERE group_id = " + studentGroup.getId() + ";");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void updateStudent(StudentView studentView) {
         Statement statement = null;
         try {

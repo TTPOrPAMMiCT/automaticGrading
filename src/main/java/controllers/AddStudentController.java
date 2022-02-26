@@ -52,12 +52,28 @@ public class AddStudentController extends Controller {
     @FXML
     void clickAdd(ActionEvent event) {
         StudentDao studentDao = new StudentDaoImpl();
-        studentDao.addStudent(new Student(
-                txtName.getText(),
-                txtSurname.getText(),
-                txtMiddleName.getText(),
-                choiceGroup.getValue().getId()
-                ));
+        if (checkTextTextField()) {
+            studentDao.addStudent(new Student(
+                    txtName.getText(),
+                    txtSurname.getText(),
+                    txtMiddleName.getText(),
+                    choiceGroup.getValue().getId()
+            ));
+            System.out.println("create student");
+        } else {
+            System.out.println("not create");
+        }
+
+        Controller.getMainWindowController().updateTableContent();
+        Controller.getMainWindowController().getEditListStudentController().updateTableContent();
+    }
+
+    private Boolean checkTextTextField() {
+        if (!txtName.getText().isEmpty() && !txtSurname.getText().isEmpty() && !txtMiddleName.getText().isEmpty() && choiceGroup.getValue() != null ) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

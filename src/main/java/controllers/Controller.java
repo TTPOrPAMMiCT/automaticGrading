@@ -16,4 +16,5 @@ public abstract class Controller {
     public static void setMainWindowController(MainWindowController mainWindowController) {
         Controller.mainWindowController = mainWindowController;
     }
+
 }

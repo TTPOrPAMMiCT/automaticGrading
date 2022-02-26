@@ -1,8 +1,13 @@
 package dao.studentGroupDao;
 
+import dao.gradeDao.GradeDao;
+import dao.gradeDao.GradeDaoImpl;
+import dao.studentDao.StudentDao;
+import dao.studentDao.StudentDaoImpl;
 import utility.dataBase.ConnectDB;
 import entity.model.StudentGroup;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -53,5 +58,19 @@ public class StudentGroupDaoImpl extends StudentGroupDao{
         return studentGroup;
     }
 
+    @Override
+    public void deleteGroup(StudentGroup studentGroup) {
+        StudentDao studentDao = new StudentDaoImpl();
+        GradeDao gradeDao = new GradeDaoImpl();
+
+        try {
+            String URL = "Delete from student_group where id = " + studentGroup.getId() + ";";
+            PreparedStatement preparedStatement = connectDB.returnConnection().prepareStatement(URL);
+            int count = preparedStatement.executeUpdate();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 }
 
