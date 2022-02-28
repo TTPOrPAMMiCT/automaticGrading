@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.event.ActionEvent;
 
 import java.io.IOException;
 
@@ -50,6 +51,8 @@ public class EditListStudentController extends Controller {
 
     private ObservableList<StudentView> studentViews;
     private Stage stage;
+    AddGroupController addGroupController = new AddGroupController();
+    AddStudentController addStudentController = new AddStudentController();
 
 
     @FXML
@@ -60,7 +63,6 @@ public class EditListStudentController extends Controller {
 
         //this need to get access to te controller proxy object
         getMainWindowController().setEditListStudentController(this);
-        System.out.println(choiceGroup.getValue());
     }
 
     public void updateTableContent() {
@@ -87,7 +89,7 @@ public class EditListStudentController extends Controller {
         group.setCellValueFactory(new PropertyValueFactory<>("studentGroup"));
     }
 
-    private void updateChoiceGroup() {
+    public void updateChoiceGroup() {
         StudentGroupDao dao = new StudentGroupDaoImpl();
         StudentDao studentDao = new StudentDaoImpl();
 
@@ -104,12 +106,15 @@ public class EditListStudentController extends Controller {
     ////////////////////////////////////////////button
     @FXML
     void clickAddGroup(ActionEvent event) {
-
+        try {
+            addGroupController.createWindow(new ActionEvent());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void clickAddStudent(ActionEvent event) {
-        AddStudentController addStudentController = new AddStudentController();
         addStudentController.createWindow(new ActionEvent());
     }
     /////////////////////////////////////////////////
@@ -126,7 +131,7 @@ public class EditListStudentController extends Controller {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        stage.setTitle("_EditListStudent_");
+        stage.setTitle("_Редактировать список групп_");
         stage.centerOnScreen();
         stage.show();
     }

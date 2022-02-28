@@ -4,10 +4,7 @@ public class StudentGroup {
     private int id;
     private String nameGroup;
 
-    public StudentGroup(int id, String nameGroup, int idGroup) {
-        this.id = id;
-        this.nameGroup = nameGroup;
-    }
+
 
     public StudentGroup(int id, String nameGroup) {
         this.id = id;

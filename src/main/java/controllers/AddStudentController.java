@@ -59,9 +59,12 @@ public class AddStudentController extends Controller {
                     txtMiddleName.getText(),
                     choiceGroup.getValue().getId()
             ));
-            System.out.println("create student");
+
+            txtName.clear();
+            txtSurname.clear();
+            txtMiddleName.clear();
         } else {
-            System.out.println("not create");
+
         }
 
         Controller.getMainWindowController().updateTableContent();
@@ -84,7 +87,7 @@ public class AddStudentController extends Controller {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        stage.setTitle("_addStudent_");
+        stage.setTitle("_добавить студента_");
         stage.centerOnScreen();
         stage.show();
     }

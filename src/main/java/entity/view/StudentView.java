@@ -54,7 +54,7 @@ public class StudentView extends Student {
         StudentGroupDao studentGroupDao = new StudentGroupDaoImpl();
         GradeDao gradeDao = new GradeDaoImpl();
         setGradeList(gradeDao.findGrade(student.getId()));
-        setStudentGroup(studentGroupDao.findGroupFromId(student.getId()));
+        setStudentGroup(studentGroupDao.findGroupFromId(student.getIdGroup()));
         calculatedAverageScore(getGradeList());
         gradesToString(getGradeList());
         parseStringGroup();

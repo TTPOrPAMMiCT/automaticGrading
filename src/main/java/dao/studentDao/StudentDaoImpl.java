@@ -18,13 +18,22 @@ import java.util.List;
 
 public class StudentDaoImpl extends StudentDao {
     ConnectDB connectDB =  new ConnectDB();
+    Statement statement;
+
+    public StudentDaoImpl() {
+        try {
+            statement = connectDB.returnConnection().createStatement();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 
     @Override
     public List<StudentView> findStudents() {
         List<StudentView> studentList = new ArrayList<>();
         int line = 1;
         try {
-            Statement statement = connectDB.returnConnection().createStatement();
+
             ResultSet resultSet = statement.executeQuery("select * from student;");
             while (resultSet.next()) {
                 studentList.add(new StudentView(new Student(
@@ -46,7 +55,6 @@ public class StudentDaoImpl extends StudentDao {
         List<StudentView> studentList = new ArrayList<>();
         int line = 1;
         try {
-            Statement statement = connectDB.returnConnection().createStatement();
             ResultSet resultSet = statement.executeQuery("select * from student where group_id = " + studentGroup.getId() + ";");
             while (resultSet.next()) {
                 studentList.add(new StudentView(new Student(
@@ -66,10 +74,8 @@ public class StudentDaoImpl extends StudentDao {
 
     @Override
     public void deleteStudent(int idStudent) {
-        Statement statement = null;
         GradeDao gradeDao = new GradeDaoImpl();
         try {
-            statement = connectDB.returnConnection().createStatement();
             gradeDao.deleteFullGrades(idStudent);
             int countDelete = statement.executeUpdate("DELETE FROM student WHERE id = " + idStudent + ";");
         } catch (SQLException e) {
@@ -79,9 +85,7 @@ public class StudentDaoImpl extends StudentDao {
 
     @Override
     public void deleteStudentFromGroup(StudentGroup studentGroup) {
-        Statement statement = null;
         try {
-            statement = connectDB.returnConnection().createStatement();
             int countDelete = statement.executeUpdate("DELETE FROM student WHERE group_id = " + studentGroup.getId() + ";");
 
         } catch (SQLException e) {
@@ -91,7 +95,6 @@ public class StudentDaoImpl extends StudentDao {
 
     @Override
     public void updateStudent(StudentView studentView) {
-        Statement statement = null;
         try {
             String url = "UPDATE student " +
                     " SET" +
@@ -101,7 +104,6 @@ public class StudentDaoImpl extends StudentDao {
                     " `group_id` = ' " + studentView.getIdGroup() + "'" +
                     " WHERE" +
                     " (id = " + studentView.getId() + ");";
-            statement = connectDB.returnConnection().createStatement();
             int resultSet = statement.executeUpdate(url);
         } catch (SQLException throwables) {
             throwables.printStackTrace();

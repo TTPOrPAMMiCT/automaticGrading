@@ -13,15 +13,23 @@ import java.util.List;
 
 public class GradeDaoImpl extends GradeDao{
     ConnectDB connectDB = new ConnectDB();
+    Statement statement;
+
+    public GradeDaoImpl() {
+        try {
+            statement = connectDB
+                    .returnConnection()
+                    .createStatement();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 
     @Override
     public List findGrade(int idStudent) {
         List gradeList = new ArrayList();
         try {
             String sql = "select * from grade where student_id = " + idStudent + ";";
-            Statement statement = connectDB
-                    .returnConnection()
-                    .createStatement();
 
             ResultSet resultSet = statement
                     .executeQuery(sql);
@@ -60,9 +68,7 @@ public class GradeDaoImpl extends GradeDao{
 
     @Override
     public void deleteFullGrades(int idStudent) {
-        Statement statement = null;
         try {
-            statement = connectDB.returnConnection().createStatement();
             int countDelete = statement.executeUpdate("DELETE FROM grade WHERE student_id = " + idStudent + ";");
         } catch (SQLException e) {
             e.printStackTrace();

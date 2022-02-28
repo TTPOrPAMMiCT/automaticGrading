@@ -49,6 +49,7 @@ public class MainWindowController extends Controller {
     private Button listGroup;
     private ObservableList<StudentView> studentViews;
     private EditListStudentController editListStudentController = new EditListStudentController();
+    private AddGroupController addGroupController;
     private Stage stage;
 
     @Override
@@ -60,7 +61,7 @@ public class MainWindowController extends Controller {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        stage.setTitle("_MainWindow_");
+        stage.setTitle("_главное окно_");
         stage.centerOnScreen();
         stage.show();
     }
@@ -171,7 +172,7 @@ public class MainWindowController extends Controller {
     }
 
 
-    public void buttonEditListStudent(ActionEvent actionEvent) {
+    public void clickEditListStudent(ActionEvent actionEvent) {
         try {
             editListStudentController.createWindow(new ActionEvent());
         } catch (IOException e) {
@@ -180,6 +181,23 @@ public class MainWindowController extends Controller {
     }
 
     ////////////////////////////////////////getters and setters
+
+
+    public AddGroupController getAddGroupController() {
+        return addGroupController;
+    }
+
+    public void setAddGroupController(AddGroupController addGroupController) {
+        this.addGroupController = addGroupController;
+    }
+
+    public Stage getStage() {
+        return stage;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
 
     public EditListStudentController getEditListStudentController() {
         return editListStudentController;
