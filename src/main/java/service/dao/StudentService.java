@@ -15,14 +15,14 @@ public class StudentService {
     public List<Student> findAll() {
         Session session = HibernateUtil.openSession();
         List<Student> students = studentDao.findAll(session);
-        session.close();
+        HibernateUtil.closeSession(session);
         return students;
     }
 
     public List<Student> findByGroup(StudentGroup studentGroup) {
         Session session = HibernateUtil.openSession();
         List<Student> students = studentDao.findByGroup(session, studentGroup);
-        session.close();
+        HibernateUtil.closeSession(session);
         return students;
     }
 

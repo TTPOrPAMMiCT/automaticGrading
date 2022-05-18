@@ -2,10 +2,7 @@ package controllers;
 
 import dao.studentGroupDao.StudentGroupDao;
 import dao.studentGroupDao.StudentGroupDaoImpl;
-import entity.model.StudentGroup;
 import entity.view.StudentGroupView;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -49,14 +46,13 @@ public class AddGroupController extends Controller{
 
     public void updateTable() {
         StudentGroupDao studentGroupDao = new StudentGroupDaoImpl();
-        ObservableList<StudentGroupView> studentGroupViews = FXCollections.observableList(studentGroupDao.findGroupView());
-        table.setItems(studentGroupViews);
+
+
     }
 
     public void clickAdd(ActionEvent actionEvent) {
         StudentGroupDao studentGroupDao = new StudentGroupDaoImpl();
         if(nameGroup.getText() != "") {
-            studentGroupDao.createGroup(new StudentGroup(nameGroup.getText()));
             nameGroup.clear();
             Controller.getMainWindowController().updateChoiceGroup();
             Controller.getMainWindowController().getEditListStudentController().updateChoiceGroup();

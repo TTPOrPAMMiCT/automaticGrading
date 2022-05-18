@@ -3,10 +3,7 @@ package controllers;
 import dao.studentDao.StudentDao;
 import dao.studentDao.StudentDaoImpl;
 import dao.studentGroupDao.StudentGroupDaoImpl;
-import entity.model.Student;
 import entity.model.StudentGroup;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -44,8 +41,6 @@ public class AddStudentController extends Controller {
 
     private void initGroup() {
         StudentGroupDaoImpl studentGroupDao = new StudentGroupDaoImpl();
-        ObservableList<StudentGroup> studentGroups = FXCollections.observableList(studentGroupDao.findGroup());
-        choiceGroup.setItems(studentGroups);
     }
 
 
@@ -53,12 +48,6 @@ public class AddStudentController extends Controller {
     void clickAdd(ActionEvent event) {
         StudentDao studentDao = new StudentDaoImpl();
         if (checkTextTextField()) {
-            studentDao.addStudent(new Student(
-                    txtName.getText(),
-                    txtSurname.getText(),
-                    txtMiddleName.getText(),
-                    choiceGroup.getValue().getId()
-            ));
 
             txtName.clear();
             txtSurname.clear();

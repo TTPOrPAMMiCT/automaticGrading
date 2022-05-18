@@ -1,18 +1,22 @@
 package entity.model;
 
+import javax.persistence.*;
+import java.util.Objects;
+
+@Entity
+@Table(name = "grade")
 public class Grade {
-    int id;
-    int grade;
-    int idStudent;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Column(name = "id", nullable = false)
+    private int id;
+    @Basic
+    @Column(name = "grade", nullable = false)
+    private int grade;
 
-    public Grade() {
-    }
-
-    public Grade(int id, int grade, int idStudent) {
-        this.id = id;
-        this.grade = grade;
-        this.idStudent = idStudent;
-    }
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "student_id")
+    private Student student;
 
     public int getId() {
         return id;
@@ -30,16 +34,18 @@ public class Grade {
         this.grade = grade;
     }
 
-    public int getIdStudent() {
-        return idStudent;
-    }
-
-    public void setIdStudent(int idStudent) {
-        this.idStudent = idStudent;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Grade grade1 = (Grade) o;
+        return id == grade1.id && grade == grade1.grade && Objects.equals(student, grade1.student);
     }
 
     @Override
-    public String toString() {
-        return "" + grade;
+    public int hashCode() {
+        return Objects.hash(id, grade, student);
     }
+
+
 }

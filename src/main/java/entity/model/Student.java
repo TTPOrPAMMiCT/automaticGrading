@@ -1,41 +1,32 @@
 package entity.model;
 
+import javax.persistence.*;
+import java.util.List;
+import java.util.Objects;
+
+@Entity
+@Table(name = "student")
 public class Student {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Column(name = "id", nullable = false)
     private int id;
+    @Basic
+    @Column(name = "name", nullable = true, length = 45)
     private String name;
+    @Basic
+    @Column(name = "surname", nullable = true, length = 45)
     private String surname;
+    @Basic
+    @Column(name = "middle_name", nullable = true, length = 45)
     private String middleName;
-    private int idGroup;
 
-    public Student() {
-    }
+    @OneToMany(mappedBy = "grade", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<Grade> grades;
 
-    public Student(int id,
-                   String name,
-                   String surname,
-                   String middleName,
-                   int idGroup) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.middleName = middleName;
-        this.idGroup = idGroup;
-    }
-
-    public Student(String name, String surname, String middleName, int idGroup) {
-        this.name = name;
-        this.surname = surname;
-        this.middleName = middleName;
-        this.idGroup = idGroup;
-    }
-
-    public String getStudent() {
-        return " id " + this.id +
-                " name " + this.name +
-                " surName " + this.surname +
-                " middle name " + this.middleName +
-                " idGroup " + this.idGroup;
-    }
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "group_id")
+    private StudentGroup studentGroup;
 
     public int getId() {
         return id;
@@ -69,22 +60,18 @@ public class Student {
         this.middleName = middleName;
     }
 
-    public int getIdGroup() {
-        return idGroup;
-    }
-
-    public void setIdGroup(int idGroup) {
-        this.idGroup = idGroup;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return id == student.id && Objects.equals(name, student.name) && Objects.equals(surname, student.surname) && Objects.equals(middleName, student.middleName) && Objects.equals(grades, student.grades) && Objects.equals(studentGroup, student.studentGroup);
     }
 
     @Override
-    public String toString() {
-        return "Student{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", middleName='" + middleName + '\'' +
-                ", idGroup=" + idGroup +
-                '}';
+    public int hashCode() {
+        return Objects.hash(id, name, surname, middleName, grades, studentGroup);
     }
+
+
 }

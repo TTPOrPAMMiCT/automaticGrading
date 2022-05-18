@@ -1,14 +1,10 @@
 package entity.view;
 
-import controllers.Controller;
-import dao.studentGroupDao.StudentGroupDao;
-import dao.studentGroupDao.StudentGroupDaoImpl;
-import entity.model.StudentGroup;
-import javafx.scene.control.Button;
 
+import entity.model.StudentGroup;
 
 public class StudentGroupView extends StudentGroup {
-    Button delete = new Button("удалить");
+    /*Button delete = new Button("удалить");
 
     public StudentGroupView(StudentGroup studentGroup) {
         setId(studentGroup.getId());
@@ -38,5 +34,5 @@ public class StudentGroupView extends StudentGroup {
 
     public void setDelete(Button delete) {
         this.delete = delete;
-    }
+    }*/
 }

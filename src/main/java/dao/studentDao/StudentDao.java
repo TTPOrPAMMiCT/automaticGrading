@@ -1,18 +1,14 @@
 package dao.studentDao;
 
-import entity.model.Grade;
 import entity.model.Student;
 import entity.model.StudentGroup;
-import entity.view.StudentView;
+import org.hibernate.Session;
 
 import java.util.List;
 
 public abstract class StudentDao {
-    public abstract List<StudentView> findStudents();
-    public abstract List<StudentView> findStudentsFromId(StudentGroup studentGroup);
-    public abstract void deleteStudent(int idStudent);
-    public abstract void deleteStudentFromGroup(StudentGroup studentGroup);
-    public abstract void updateStudent(StudentView studentView);
-    public abstract void addStudent(Student student);
-
+    public abstract List<Student> findAll(Session session);
+    public abstract List<Student> findByGroup(Session session, StudentGroup studentGroup);
+    public abstract void addStudent(Session session, Student student);
+    public abstract void deleteStudent(Session session, Student student);
 }

@@ -2,21 +2,20 @@ package controllers;
 
 import dao.studentDao.StudentDao;
 import dao.studentDao.StudentDaoImpl;
-import dao.studentGroupDao.StudentGroupDao;
-import dao.studentGroupDao.StudentGroupDaoImpl;
 import entity.model.StudentGroup;
 import entity.view.StudentView;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javafx.event.ActionEvent;
 
 import java.io.IOException;
 
@@ -57,9 +56,6 @@ public class EditListStudentController extends Controller {
 
     @FXML
     private void initialize() {
-        initTable();
-        updateChoiceGroup();
-        updateTableContent();
 
         //this need to get access to te controller proxy object
         getMainWindowController().setEditListStudentController(this);
@@ -67,11 +63,7 @@ public class EditListStudentController extends Controller {
 
     public void updateTableContent() {
         StudentDao studentDao = new StudentDaoImpl();
-        if (choiceGroup.getValue() != null) {
-            studentViews = FXCollections.observableList(studentDao.findStudentsFromId(choiceGroup.getValue()));
-        } else {
-            studentViews = FXCollections.observableList(studentDao.findStudents());
-        }
+
         table.setItems(studentViews);
     }
 
@@ -90,17 +82,7 @@ public class EditListStudentController extends Controller {
     }
 
     public void updateChoiceGroup() {
-        StudentGroupDao dao = new StudentGroupDaoImpl();
-        StudentDao studentDao = new StudentDaoImpl();
 
-        ObservableList<StudentGroup> groups = FXCollections.observableList(dao.findGroup());
-//        groups.add(new StudentGroup("все группы"));
-        choiceGroup.setPromptText("группы");
-        choiceGroup.setItems(groups);
-        choiceGroup.setOnAction(actionEvent -> {
-            studentViews.remove(0, studentViews.size());
-            studentViews.addAll(studentDao.findStudentsFromId(choiceGroup.getValue()));
-        });
     }
 
     ////////////////////////////////////////////button

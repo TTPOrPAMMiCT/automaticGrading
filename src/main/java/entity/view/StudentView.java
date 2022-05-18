@@ -1,16 +1,10 @@
 package entity.view;
 
-import controllers.Controller;
-import dao.gradeDao.GradeDao;
-import dao.gradeDao.GradeDaoImpl;
-import dao.studentDao.StudentDao;
-import dao.studentDao.StudentDaoImpl;
-import dao.studentGroupDao.StudentGroupDao;
-import dao.studentGroupDao.StudentGroupDaoImpl;
 import entity.model.Grade;
 import entity.model.Student;
 import entity.model.StudentGroup;
 import javafx.scene.control.Button;
+
 import java.util.List;
 
 public class StudentView extends Student {
@@ -25,40 +19,18 @@ public class StudentView extends Student {
     public StudentView() {
     }
 
-    public StudentView(Student student, int idLine) {
-        setName(student.getName());
-        setSurname(student.getSurname());
-        setMiddleName(student.getMiddleName());
+    public void createStudent(Student student, StudentGroup studentGroup, List<Grade> gradeList) {
         setId(student.getId());
-        setIdGroup(student.getIdGroup());
-        setIdLine(idLine);
-        initStudentTable(student);
+        setName(student.getName());
+        student.setSurname(student.getSurname());
+        student.setMiddleName(student.getMiddleName());
+        setStudentGroup(studentGroup);
+        setGradeList(gradeList);
     }
 
-    /////////////////////////////////button
-
-    private void initialiseDeleteStudent () {
-        StudentDao studentDao = new StudentDaoImpl();
-        deleteStudent.setOnAction(event -> {
-            studentDao.deleteStudent(getId());
-            Controller.getMainWindowController().updateTableContent();
-            Controller.getMainWindowController().getEditListStudentController().updateTableContent();
-        });
-    }
-
-    ///////////////////////////////////////
-
-    ///////////////////init
 
     private void initStudentTable(Student student){
-        StudentGroupDao studentGroupDao = new StudentGroupDaoImpl();
-        GradeDao gradeDao = new GradeDaoImpl();
-        setGradeList(gradeDao.findGrade(student.getId()));
-        setStudentGroup(studentGroupDao.findGroupFromId(student.getIdGroup()));
-        calculatedAverageScore(getGradeList());
-        gradesToString(getGradeList());
-        parseStringGroup();
-        initialiseDeleteStudent();
+
     }
 
     private void parseStringGroup() {
@@ -143,6 +115,6 @@ public class StudentView extends Student {
     public String toString() {
         return "StudentView{" +
                 ", gradeList=" + gradeList +
-                '}' + getStudent();
+                '}';
     }
 }

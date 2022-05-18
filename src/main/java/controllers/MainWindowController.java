@@ -1,26 +1,21 @@
 package controllers;
 
-import dao.gradeDao.GradeDaoImpl;
-import dao.studentDao.StudentDao;
-import dao.studentDao.StudentDaoImpl;
-import dao.studentGroupDao.StudentGroupDao;
-import dao.studentGroupDao.StudentGroupDaoImpl;
 import entity.model.StudentGroup;
 import entity.view.StudentView;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
+import service.dao.StudentService;
 import service.search.Search;
 
 import java.io.IOException;
@@ -52,6 +47,8 @@ public class MainWindowController extends Controller {
     private AddGroupController addGroupController;
     private Stage stage;
 
+    private StudentService studentService = new StudentService();
+
     @Override
     public void createWindow(ActionEvent actionEvent)  {
         stage = new Stage();
@@ -68,21 +65,11 @@ public class MainWindowController extends Controller {
 
     @FXML
     private void initialize() {
-        updateChoiceGroup();
-        editTable();
-        initTable();
-        updateTableContent();
         setMainWindowController(this);
     }
 
     public void updateTableContent() {
-        StudentDao studentDao = new StudentDaoImpl();
-        if (choiceGroup.getValue() != null) {
-            studentViews = FXCollections.observableList(studentDao.findStudentsFromId(choiceGroup.getValue()));
-        } else {
-            studentViews = FXCollections.observableList(studentDao.findStudents());
-        }
-        table.setItems(studentViews);
+
     }
 
     public void initTable() {
@@ -100,9 +87,9 @@ public class MainWindowController extends Controller {
     }
 
     public void editTable() {
-        StudentDao studentDao = new StudentDaoImpl();
 
-       grades.setCellFactory(TextFieldTableCell.forTableColumn());
+
+      /* grades.setCellFactory(TextFieldTableCell.forTableColumn());
         grades.setOnEditCommit(event -> {
             StudentView student = event
                     .getTableView()
@@ -122,7 +109,7 @@ public class MainWindowController extends Controller {
                     .getItems()
                     .get(event.getTablePosition().getRow());
             studentView.setName(event.getNewValue());
-            studentDao.updateStudent(studentView);
+
         });
 
         surname.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -132,7 +119,6 @@ public class MainWindowController extends Controller {
                     .getItems()
                     .get(event.getTablePosition().getRow());
             studentView.setSurname(event.getNewValue());
-            studentDao.updateStudent(studentView);
         });
 
         middleName.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -142,33 +128,19 @@ public class MainWindowController extends Controller {
                     .getItems()
                     .get(event.getTablePosition().getRow());
             studentView.setMiddleName(event.getNewValue());
-            studentDao.updateStudent(studentView);
-        });
+        });*/
     }
 
     public void editGrade(String newGradeList, StudentView student) {
         Search search = new Search();
-        GradeDaoImpl gradeDao = new GradeDaoImpl();
+
         List<Integer> newGrade = search.getListSymbolsAndParseInt(newGradeList);
-        if (student.getGradeList().size() != newGrade.size()) {
-            gradeDao.editGrade(student, search.getListSymbolsAndParseInt(newGradeList));
-        }
+        //////////////////////if
         updateTableContent();
     }
 
     public void updateChoiceGroup() {
-        StudentGroupDao dao = new StudentGroupDaoImpl();
-        StudentDao studentDao = new StudentDaoImpl();
 
-        ObservableList<StudentGroup> groups = FXCollections.observableList(dao.findGroup());
-//        groups.add(new StudentGroup("все группы"));
-        choiceGroup.setPromptText("группы");
-        choiceGroup.setItems(groups);
-        choiceGroup.setOnAction(actionEvent -> {
-            nameGroup.setText(choiceGroup.getValue().getNameGroup());
-            studentViews.remove(0, studentViews.size());
-            studentViews.addAll(studentDao.findStudentsFromId(choiceGroup.getValue()));
-        });
     }
 
 
