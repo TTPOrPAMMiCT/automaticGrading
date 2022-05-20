@@ -26,7 +26,7 @@ public class StudentService {
         return students;
     }
 
-    public void addStudent(Student student) {
+    public void create(Student student) {
         Session session = HibernateUtil.openSessionWithTransaction();
         studentDao.addStudent(session, student);
         HibernateUtil.closeSessionWithTransaction(session);

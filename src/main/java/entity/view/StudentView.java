@@ -8,83 +8,51 @@ import javafx.scene.control.Button;
 import java.util.List;
 
 public class StudentView extends Student {
-    private Button deleteStudent = new Button("удалить");
-    private List<Grade> gradeList;
+    private Button button = new Button("Удалить");
+    private double average;
     private int averageScore;
-    private String gradesString;
-    private String strStudentGroup;
-    private StudentGroup studentGroup;
-    private int idLine;
 
-    public StudentView() {
-    }
+    StudentGroup studentGroup;
+    List<Grade> gradeList;
 
-    public void createStudent(Student student, StudentGroup studentGroup, List<Grade> gradeList) {
+    public void createStudent(StudentGroup studentGroup, Student student, List<Grade> gradeList) {
         setId(student.getId());
         setName(student.getName());
-        student.setSurname(student.getSurname());
-        student.setMiddleName(student.getMiddleName());
+        setSurname(student.getSurname());
+        setMiddleName(student.getMiddleName());
         setStudentGroup(studentGroup);
         setGradeList(gradeList);
     }
 
-
-    private void initStudentTable(Student student){
-
-    }
-
-    private void parseStringGroup() {
-        setStrStudentGroup(getStudentGroup().toString());
-    }
-
-    ///////////////////////
-
-    private void calculatedAverageScore(List<Grade> gradeList) {
-        double average = 0.0;
-        for (int i = 0; i < gradeList.size(); i++) {
-            average += gradeList.get(i).getGrade();
+    private void countUpAverage(List<Grade> gradeList) {
+        double number = 0;
+        if(gradeList.size() != 0) {
+            for (int i = 0; i < gradeList.size(); i++) {
+                number = number + gradeList.get(i).getGrade();
+            }
+            setAverage(number / gradeList.size());
+            setAverageScore((int) Math.round(number / gradeList.size()));
         }
-        this.averageScore = (int) Math.round(average / gradeList.size());
     }
 
-    private void gradesToString(List list) {
-        String convertString = list.toString();
-        this.gradesString = convertString.replaceAll("[\\[\\]]", "");;
+    public Button getButton() {
+        return button;
     }
 
-    ///////////////////////////////////////Getters and Setters///////////////////////////////////////
-
-
-    public int getIdLine() {
-        return idLine;
+    public void setButton(Button button) {
+        this.button = button;
     }
 
-    public void setIdLine(int idLine) {
-        this.idLine = idLine;
+    public void setAverage(double average) {
+        this.average = average;
     }
 
-    public String getStrStudentGroup() {
-        return strStudentGroup;
+    public double getAverage() {
+        return average;
     }
 
-    public void setStrStudentGroup(String strStudentGroup) {
-        this.strStudentGroup = strStudentGroup;
-    }
-
-    public Button getDeleteStudent() {
-        return deleteStudent;
-    }
-
-    public void setDeleteStudent(Button deleteStudent) {
-        this.deleteStudent = deleteStudent;
-    }
-
-    public StudentGroup getStudentGroup() {
-        return studentGroup;
-    }
-
-    public void setStudentGroup(StudentGroup studentGroup) {
-        this.studentGroup = studentGroup;
+    public void setAverage(int average) {
+        this.average = average;
     }
 
     public int getAverageScore() {
@@ -95,12 +63,12 @@ public class StudentView extends Student {
         this.averageScore = averageScore;
     }
 
-    public String getGradesString() {
-        return gradesString;
+    public StudentGroup getStudentGroup() {
+        return studentGroup;
     }
 
-    public void setGradesString(String gradesString) {
-        this.gradesString = gradesString;
+    public void setStudentGroup(StudentGroup studentGroup) {
+        this.studentGroup = studentGroup;
     }
 
     public List<Grade> getGradeList() {
@@ -109,12 +77,5 @@ public class StudentView extends Student {
 
     public void setGradeList(List<Grade> gradeList) {
         this.gradeList = gradeList;
-    }
-
-    @Override
-    public String toString() {
-        return "StudentView{" +
-                ", gradeList=" + gradeList +
-                '}';
     }
 }

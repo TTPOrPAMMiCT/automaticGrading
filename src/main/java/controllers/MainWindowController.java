@@ -24,6 +24,7 @@ import java.util.List;
 public class MainWindowController extends Controller {
     @FXML
     public ComboBox<StudentGroup> choiceGroup;
+    public TableColumn<StudentView, Double> average;
     @FXML
     private Text nameGroup;
     @FXML
@@ -84,6 +85,8 @@ public class MainWindowController extends Controller {
         grades.setCellValueFactory(new PropertyValueFactory<>("gradesString"));
 
         averageScore.setCellValueFactory(new PropertyValueFactory<>("averageScore"));
+
+        average.setCellValueFactory(new PropertyValueFactory<>("averageScore"));
     }
 
     public void editTable() {

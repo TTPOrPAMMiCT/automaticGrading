@@ -10,6 +10,5 @@ public class StudentViewDaoImpl extends StudentViewDao {
     @Override
     public List<StudentView> findAll(Session session) {
         return null;
-
     }
 }
