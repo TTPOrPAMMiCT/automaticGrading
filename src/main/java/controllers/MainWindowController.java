@@ -86,7 +86,7 @@ public class MainWindowController extends Controller {
 
         averageScore.setCellValueFactory(new PropertyValueFactory<>("averageScore"));
 
-        average.setCellValueFactory(new PropertyValueFactory<>("averageScore"));
+        average.setCellValueFactory(new PropertyValueFactory<>("average"));
     }
 
     public void editTable() {
