@@ -7,7 +7,7 @@ import TTPOrPAMMiCT.su.entity.view.StudentView;
 
 import java.util.List;
 
-public class StudentDaoImpl extends StudentDao {
+public class StudentDaoImpl implements StudentDao {
 
 
     @Override

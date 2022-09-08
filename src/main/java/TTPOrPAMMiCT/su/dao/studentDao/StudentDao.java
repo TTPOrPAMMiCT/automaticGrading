@@ -6,12 +6,12 @@ import TTPOrPAMMiCT.su.entity.view.StudentView;
 
 import java.util.List;
 
-public abstract class StudentDao {
-    public abstract List<StudentView> findStudents();
-    public abstract List<StudentView> findStudentsFromId(Squad squad);
-    public abstract void deleteStudent(int idStudent);
-    public abstract void deleteStudentFromGroup(Squad squad);
-    public abstract void updateStudent(StudentView studentView);
-    public abstract void addStudent(Student student);
+interface StudentDao {
+    List<StudentView> findStudents();
+    List<StudentView> findStudentsFromId(Squad squad);
+    void deleteStudent(int idStudent);
+    void deleteStudentFromGroup(Squad squad);
+    void updateStudent(StudentView studentView);
+    void addStudent(Student student);
 
 }

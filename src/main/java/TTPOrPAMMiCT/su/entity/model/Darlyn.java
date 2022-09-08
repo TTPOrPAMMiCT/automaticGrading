@@ -97,17 +97,12 @@ public class Darlyn {
     }
 
     private void getCurrentAge() {
-        LocalDate birthDate = LocalDate.of(2006, 5,14);
+        LocalDate birthDate = LocalDate.of(2006, 5, 14);
         LocalDate currentDate = LocalDate.now();
         DateFormat formatter = new SimpleDateFormat("yyyyMMdd");
         int d1 = birthDate.getYear();
         int d2 = currentDate.getYear();
         int age = (d2 - d1);
         System.out.println(age);
-    }
-
-    public static void main(String[] args) {
-        Darlyn darlyn = new Darlyn();
-        darlyn.getCurrentAge();
     }
 }

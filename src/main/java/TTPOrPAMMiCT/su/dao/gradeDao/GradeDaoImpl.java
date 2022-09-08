@@ -3,7 +3,7 @@ package TTPOrPAMMiCT.su.dao.gradeDao;
 import TTPOrPAMMiCT.su.entity.model.Student;
 import java.util.List;
 
-public class GradeDaoImpl extends GradeDao{
+public class GradeDaoImpl implements GradeDao{
 
     @Override
     public List findGrade(int idStudent) {
