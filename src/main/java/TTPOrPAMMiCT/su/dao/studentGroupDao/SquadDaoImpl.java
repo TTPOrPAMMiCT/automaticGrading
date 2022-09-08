@@ -1,4 +1,4 @@
-package TTPOrPAMMiCT.su.dao.SquadDao;
+package TTPOrPAMMiCT.su.dao.studentGroupDao;
 
 
 import TTPOrPAMMiCT.su.entity.model.Squad;
@@ -6,7 +6,7 @@ import org.hibernate.Session;
 
 import java.util.List;
 
-public class SquadDaoImpl implements SquadDao {
+public class SquadDaoImpl extends SquadDao {
 
 
     @Override
