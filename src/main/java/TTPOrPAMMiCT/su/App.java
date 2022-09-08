@@ -12,7 +12,6 @@ public class App extends Application {
     public void start(Stage primaryStage) throws Exception {
         MainWindowController mainWindowController = new MainWindowController();
         mainWindowController.createWindow(new ActionEvent(),"mainWindow.fxml", "main_window");
-        new CreateFolder().createFolderOutInputProgram();
     }
 
     public static void main(String[] args ) {

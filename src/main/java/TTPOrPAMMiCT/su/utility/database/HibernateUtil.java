@@ -30,14 +30,11 @@ public class HibernateUtil {
     }
 
     public static Session openSession() {
-        Session session = getSessionFactory().openSession();
-        return session;
+        return getSessionFactory().openSession();
     }
 
     public static Session openSessionWithTransaction() {
-        Session session = getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
-        return session;
+        return (Session) getSessionFactory().openSession().beginTransaction();
     }
 
     public static void closeSessionWithTransaction(Session session) {

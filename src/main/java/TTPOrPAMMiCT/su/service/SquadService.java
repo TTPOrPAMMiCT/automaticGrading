@@ -7,6 +7,6 @@ import java.util.ArrayList;
 public class SquadService {
 
     public ArrayList<Squad> getListSquad() {
-
+    return null;
     }
 }
