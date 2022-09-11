@@ -13,9 +13,12 @@
                         <TableColumn fx:id="name" prefWidth="75.0" styleClass="label-bright" text="имя" />
                         <TableColumn fx:id="middleName" prefWidth="75.0" styleClass="label-bright" text="отчество" />
                         <TableColumn fx:id="grade" prefWidth="75.0" styleClass="label-bright" text="оценки" />
-                        <TableColumn fx:id="score" prefWidth="75.0" styleClass="label-bright" text="средний" />
-                        <TableColumn fx:id="total" prefWidth="75.0" styleClass="label-bright" text="итоговый" />
+                        <TableColumn fx:id="score" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" styleClass="label-bright" text="средний" />
+                        <TableColumn fx:id="total" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" styleClass="label-bright" text="итоговый" />
                     </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
                 </TableView>
             </content>
         </ScrollPane>

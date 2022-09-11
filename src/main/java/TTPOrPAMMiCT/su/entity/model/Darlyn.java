@@ -106,8 +106,8 @@ public class Darlyn {
         System.out.println(age);
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         Darlyn darlyn = new Darlyn();
         darlyn.getCurrentAge();
-    }
+    }*/
 }
