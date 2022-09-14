@@ -1,6 +1,7 @@
 package TTPOrPAMMiCT.su.gui.controllers;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -14,6 +15,7 @@ import java.io.IOException;
 @Getter
 @Setter
 abstract class FxController {
+    private static MainWindowController mainWindowController;
     private Stage stage = new Stage();
     private Scene scene;
     private boolean isAliveWindow;
@@ -31,7 +33,9 @@ abstract class FxController {
         getStage().show();
         setAliveWindow(true);
         getStage().setOnCloseRequest(event -> setAliveWindow(false));
+        initialize();
     }
 
+    @FXML
     abstract void initialize();
 }

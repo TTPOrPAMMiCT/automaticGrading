@@ -1,11 +1,12 @@
-package TTPOrPAMMiCT.su.dao;
+package TTPOrPAMMiCT.su.dao.grade;
 
+import TTPOrPAMMiCT.su.dao.Dao;
 import TTPOrPAMMiCT.su.entity.model.Grade;
 import org.hibernate.Session;
 
 import java.util.List;
 
-public class GradeDao implements Dao<Grade> {
+public class GradeDaoImpl implements GradeDao {
 
     @Override
     public void saveEntity(Grade grade, Session session) {
@@ -14,7 +15,7 @@ public class GradeDao implements Dao<Grade> {
 
     @Override
     public List<Grade> getEntityList(Session session) {
-        return (List<Grade>) session.createQuery("from grade").list();
+        return (List<Grade>) session.createSQLQuery("from grade").addEntity(Grade.class).list();
     }
 
     @Override

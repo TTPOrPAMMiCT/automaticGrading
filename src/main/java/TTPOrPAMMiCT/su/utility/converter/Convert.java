@@ -1,4 +1,4 @@
-package TTPOrPAMMiCT.su.utility.convrter;
+package TTPOrPAMMiCT.su.utility.converter;
 
 public interface Convert<Object1, Object2> {
 

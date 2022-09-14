@@ -1,6 +1,8 @@
 package TTPOrPAMMiCT.su.entity.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -20,4 +22,9 @@ public class Squad {
 
     @OneToMany(mappedBy = "squad", fetch = FetchType.EAGER)
     private List<Student> students;
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

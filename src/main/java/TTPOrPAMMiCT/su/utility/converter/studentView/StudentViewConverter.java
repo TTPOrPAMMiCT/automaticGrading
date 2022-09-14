@@ -1,8 +1,8 @@
-package TTPOrPAMMiCT.su.utility.convrter.studentView;
+package TTPOrPAMMiCT.su.utility.converter.studentView;
 
 import TTPOrPAMMiCT.su.entity.model.Student;
 import TTPOrPAMMiCT.su.entity.view.StudentView;
-import TTPOrPAMMiCT.su.utility.convrter.Convert;
+import TTPOrPAMMiCT.su.utility.converter.Convert;
 
 public class StudentViewConverter implements Convert<Student, StudentView> {
 

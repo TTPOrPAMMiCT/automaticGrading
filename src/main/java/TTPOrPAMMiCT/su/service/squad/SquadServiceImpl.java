@@ -1,16 +1,17 @@
-package TTPOrPAMMiCT.su.service;
+package TTPOrPAMMiCT.su.service.squad;
 
 import TTPOrPAMMiCT.su.dao.Dao;
-import TTPOrPAMMiCT.su.dao.SquadDao;
+import TTPOrPAMMiCT.su.dao.squad.SquadDao;
+import TTPOrPAMMiCT.su.dao.squad.SquadDaoImpl;
 import TTPOrPAMMiCT.su.entity.model.Squad;
+import TTPOrPAMMiCT.su.service.DaoService;
 import TTPOrPAMMiCT.su.utility.database.HibernateUtil;
 import org.hibernate.Session;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class SquadService implements DaoService<Squad> {
-    Dao<Squad> dao = new SquadDao();
+public class SquadServiceImpl implements SquadService{
+    SquadDao dao = new SquadDaoImpl();
 
     @Override
     public void saveEntity(Squad squad) {
@@ -21,6 +22,7 @@ public class SquadService implements DaoService<Squad> {
 
     @Override
     public List<Squad> getEntityList() {
+
         Session session = HibernateUtil.openSession();
         List squadList = dao.getEntityList(session);
         HibernateUtil.closeSession(session);

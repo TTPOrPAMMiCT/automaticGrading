@@ -5,7 +5,6 @@ import TTPOrPAMMiCT.su.entity.model.Squad;
 import TTPOrPAMMiCT.su.entity.model.Student;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
@@ -17,8 +16,8 @@ public class HibernateUtil {
         configuration
 
                 //mapping
-                .addAnnotatedClass(Student.class)
                 .addAnnotatedClass(Squad.class)
+                .addAnnotatedClass(Student.class)
                 .addAnnotatedClass(Grade.class);
                 //mapping
 
@@ -29,12 +28,11 @@ public class HibernateUtil {
         sessionFactory = configuration.buildSessionFactory(builder.build());
     }
 
-    public static Session openSession() {
-        return getSessionFactory().openSession();
-    }
-
     public static Session openSessionWithTransaction() {
-        return (Session) getSessionFactory().openSession().beginTransaction();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        return session;
     }
 
     public static void closeSessionWithTransaction(Session session) {
@@ -42,12 +40,13 @@ public class HibernateUtil {
         session.close();
     }
 
+    public static Session openSession() {
+        Session session = sessionFactory.openSession();
+
+        return session;
+    }
+
     public static void closeSession(Session session) {
         session.close();
     }
-
-    public static SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
-
 }
