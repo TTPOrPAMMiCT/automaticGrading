@@ -13,17 +13,17 @@
 
 
 
-        <!--mapping--><!--
-        <mapping class="TTPOrPAMMiCT.su.entity.model.Squad"/>
+        <!--mapping-->
+        <!--<mapping class="TTPOrPAMMiCT.su.entity.model.Squad"/>
         <mapping class="TTPOrPAMMiCT.su.entity.model.Student"/>
-        <mapping class="TTPOrPAMMiCT.su.entity.model.Grade"/>
-        --><!--mapping-->
+        <mapping class="TTPOrPAMMiCT.su.entity.model.Grade"/>-->
+        <!--mapping-->
 
 
         <!-- DB schema will be updated if needed -->
         <!--<property name="hbm2ddl.auto">create</property>-->
         <!--<property name="hibernate.cache.use_query_cache">false</property>
         <property name="hibernate.cache.use_second_level_cache">false</property>-->
-        <property name="hibernate.show_sql">true</property>
+        <!--<property name="hibernate.show_sql">true</property>-->
     </session-factory>
 </hibernate-configuration>

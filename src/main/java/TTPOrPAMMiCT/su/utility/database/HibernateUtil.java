@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.internal.SessionFactoryImpl;
 
 public class HibernateUtil {
     private static SessionFactory sessionFactory = null;
@@ -29,7 +30,8 @@ public class HibernateUtil {
     }
 
     public static Session openSessionWithTransaction() {
-        Session session = sessionFactory.openSession();
+        SessionFactory sessionFactory1 = sessionFactory;
+        Session session = sessionFactory1.openSession();
         session.beginTransaction();
 
         return session;
@@ -41,7 +43,8 @@ public class HibernateUtil {
     }
 
     public static Session openSession() {
-        Session session = sessionFactory.openSession();
+        SessionFactory sessionFactory1 = sessionFactory;
+        Session session = sessionFactory1.openSession();
 
         return session;
     }

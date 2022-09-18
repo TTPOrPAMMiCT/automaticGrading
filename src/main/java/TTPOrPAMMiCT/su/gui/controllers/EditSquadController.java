@@ -58,6 +58,8 @@ public class EditSquadController extends FxController{
     @FXML
     private Button addStudent;
     @FXML
+    public Button deleteStudent;
+    @FXML
     private Button addSquad;
     ////////////////////////////////button
     ////////////////////////////////choice box
@@ -78,10 +80,7 @@ public class EditSquadController extends FxController{
 
     private void setItemsInSquadTable() {
         SquadViewServiceImpl squadViewService = new SquadViewServiceImpl();
-        Thread setItems = new Thread(() -> {
-            tblSquadByTabSquad.setItems(FXCollections.observableList(squadViewService.getEntityList()));
-        });
-        setItems.start();
+        tblSquadByTabSquad.setItems(FXCollections.observableList(squadViewService.getEntityList()));
     }
 
     private void editTableColumns() {
@@ -89,13 +88,15 @@ public class EditSquadController extends FxController{
         tblName.setOnEditCommit(event -> {
             StudentView student = event.getTableView().getItems().get(event.getTablePosition().getRow());
             student.setName(event.getNewValue());
-            new Thread(new UpdateStudent(student)).start();
+            StudentViewService studentViewService = new StudentViewServiceImpl();
+            studentViewService.updateStudent(student);
         });
 
         tblSurname.setOnEditCommit(event -> {
             StudentView student = event.getTableView().getItems().get(event.getTablePosition().getRow());
             student.setSurname(event.getNewValue());
-            new Thread(new UpdateStudent(student)).start();
+            StudentViewService studentViewService = new StudentViewServiceImpl();
+            studentViewService.updateStudent(student);
         });
 
         tblSquad.setOnEditCommit(event -> {
@@ -105,31 +106,19 @@ public class EditSquadController extends FxController{
         tblMiddleName.setOnEditCommit(event -> {
             StudentView student = event.getTableView().getItems().get(event.getTablePosition().getRow());
             student.setMiddleName(event.getNewValue());
-            new Thread(new UpdateStudent(student)).start();
+            StudentViewService studentViewService = new StudentViewServiceImpl();
+            studentViewService.updateStudent(student);
         });
-
-
-        tblSquadDelete.setOnEditCommit(event -> {
-
-        });
-
     }
 
     private synchronized void setItemsInStudentTable() {
         DaoService<StudentView> studentViewDaoService = new StudentViewServiceImpl();
-        Thread setItemsStudentTable = new Thread(() ->
-                studentTable.setItems(FXCollections.observableList(studentViewDaoService.getEntityList()))
-        );
-        setItemsStudentTable.start();
+        studentTable.setItems(FXCollections.observableList(studentViewDaoService.getEntityList()));
     }
 
     private void setItemsInSquadBox() {
         DaoService<Squad> squadDaoService = new SquadServiceImpl();
-        Thread setItemsInSquadBox = new Thread(() -> {
-            squadBox.setItems(FXCollections.observableList(squadDaoService.getEntityList()));
-        }
-        );
-        setItemsInSquadBox.start();
+        squadBox.setItems(FXCollections.observableList(squadDaoService.getEntityList()));
     }
 
     private void setProperties() {
@@ -162,86 +151,38 @@ public class EditSquadController extends FxController{
             student.setMiddleName(txtMiddleName.getText());
             student.setSquad(squadBox.getValue());
 
-            Object sync = new Object();
-            Thread saveStudent = new Thread(() -> {
-                DaoService<Student> studentDaoService = new StudentServiceImpl();
-                studentDaoService.saveEntity(student);
-                txtName.clear();
-                txtSurname.clear();
-                txtMiddleName.clear();
-                synchronized (sync) {
-                    sync.notify();
-                }
-            });
+            DaoService<Student> studentDaoService = new StudentServiceImpl();
+            studentDaoService.saveEntity(student);
+            txtName.clear();
+            txtSurname.clear();
+            txtMiddleName.clear();
 
-
-            Thread updateStudentTable = new Thread(() -> {
-                synchronized (sync) {
-                    try {
-                        sync.wait();
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-                DaoService<StudentView> studentViewDaoService = new StudentViewServiceImpl();
-                studentViewDaoService.getEntityList();
-
-                ObservableList<StudentView> studentViewObservableList = FXCollections.observableList(studentViewDaoService.getEntityList());
-                studentTable.setItems(studentViewObservableList);
-                studentTable.refresh();
-            });
-            saveStudent.start();
-            updateStudentTable.start();
+            DaoService<StudentView> studentViewDaoService = new StudentViewServiceImpl();
+            studentTable.setItems(FXCollections.observableList(studentViewDaoService.getEntityList()));
+            studentTable.refresh();
         }
     }
 
     public void clickAddSquad(ActionEvent actionEvent) {
         DaoService<Squad> squadDaoService = new SquadServiceImpl();
         SquadViewServiceImpl squadViewService = new SquadViewServiceImpl();
-        Object sync = new Object();
+
 
         if (!txtNameSquad.getText().isEmpty()) {
             Squad squad1 = new Squad();
             squad1.setName(txtNameSquad.getText());
             txtNameSquad.clear();
+            squadDaoService.saveEntity(squad1);
 
-            Thread saveSquad = new Thread(() -> {
-                squadDaoService.saveEntity(squad1);
-                synchronized (sync) {
-                    sync.notify();
-                }
-            });
-            saveSquad.start();
-
-            Thread updateItems = new Thread(() -> {
-                synchronized (sync) {
-                    try {
-                        sync.wait();
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-                squadDaoService.getEntityList();
-                getSquadBox().setItems(FXCollections.observableList(squadDaoService.getEntityList()));
-                squadViewService.getEntityList();
-                tblSquadByTabSquad.setItems(FXCollections.observableList(squadViewService.getEntityList()));
-                tblSquadByTabSquad.refresh();
-            });
-            updateItems.start();
-
+            squadDaoService.getEntityList();
+            getSquadBox().setItems(FXCollections.observableList(squadDaoService.getEntityList()));
+            squadViewService.getEntityList();
+            tblSquadByTabSquad.setItems(FXCollections.observableList(squadViewService.getEntityList()));
+            tblSquadByTabSquad.refresh();
         }
     }
 
-    class UpdateStudent implements Runnable {
-        StudentView studentView;
+    public void clickDeleteStudent(ActionEvent actionEvent) {
 
-        public UpdateStudent (StudentView studentView) {
-            this.studentView = studentView;
-        }
-        @Override
-        public void run() {
-            StudentViewService studentViewService = new StudentViewServiceImpl();
-            studentViewService.updateStudent(studentView);
-        }
     }
 }

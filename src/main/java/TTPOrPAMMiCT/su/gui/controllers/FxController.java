@@ -33,7 +33,6 @@ abstract class FxController {
         getStage().show();
         setAliveWindow(true);
         getStage().setOnCloseRequest(event -> setAliveWindow(false));
-        initialize();
     }
 
     @FXML

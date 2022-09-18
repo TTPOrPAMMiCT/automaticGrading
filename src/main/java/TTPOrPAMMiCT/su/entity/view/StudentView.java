@@ -2,6 +2,7 @@ package TTPOrPAMMiCT.su.entity.view;
 
 import TTPOrPAMMiCT.su.entity.model.Student;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class StudentView extends Student {
-    private Button delete = new Button("удалить");
+    private CheckBox delete = new CheckBox("удалить");
 
     @Override
     public String toString() {
