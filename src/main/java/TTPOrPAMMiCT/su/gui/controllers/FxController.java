@@ -8,9 +8,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.SneakyThrows;
 
 import java.io.IOException;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -21,13 +21,12 @@ abstract class FxController {
     private boolean isAliveWindow;
 
     public void createWindow(ActionEvent actionEvent, String nameFile, String nameWindow) {
-        Parent parent;
         try {
-            parent = FXMLLoader.load(getClass().getResource("/windows/fxml/" + nameFile));
+           Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/windows/fxml/" + nameFile)));
+            setScene(new Scene(parent));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        setScene(new Scene(parent));
         getStage().setScene(getScene());
         getStage().setTitle(nameWindow);
         getStage().show();

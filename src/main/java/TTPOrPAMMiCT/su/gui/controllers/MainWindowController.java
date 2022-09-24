@@ -13,11 +13,9 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.TextFieldTableCell;
 
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class MainWindowController extends FxController {
 
@@ -64,6 +62,11 @@ public class MainWindowController extends FxController {
     public void clickEditSquad(ActionEvent actionEvent) {
         if (!editSquadController.isAliveWindow()) {
             editSquadController.createWindow(new ActionEvent(), "editSquad.fxml", "Редактор групп");
+            /*while (editSquadController.isAliveWindow()) {
+                if (!editSquadController.isAliveWindow()) {
+                    //todo
+                }
+            }*/
         }
     }
 
@@ -85,34 +88,4 @@ public class MainWindowController extends FxController {
             System.exit(0);
         });
     }
-
-    /*public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        List<String> strings = new ArrayList<>();
-
-        Thread thread = new Thread(() -> {
-            while (true) {
-                strings.add(scanner.next());
-                synchronized (scanner) {
-                    scanner.notify();
-                }
-            }
-        });
-
-        Thread thread1 = new Thread(() -> {
-            while (true) {
-                synchronized (scanner) {
-                    try {
-                        scanner.wait();
-
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-                System.out.println(strings.remove(0));
-            }
-        });
-        thread1.start();
-        thread.start();
-    }*/
 }

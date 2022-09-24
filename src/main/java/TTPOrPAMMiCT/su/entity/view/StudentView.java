@@ -1,7 +1,6 @@
 package TTPOrPAMMiCT.su.entity.view;
 
 import TTPOrPAMMiCT.su.entity.model.Student;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import lombok.Getter;
 import lombok.Setter;

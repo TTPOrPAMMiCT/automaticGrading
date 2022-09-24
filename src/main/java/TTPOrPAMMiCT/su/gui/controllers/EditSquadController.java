@@ -19,6 +19,9 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 public class EditSquadController extends FxController{
@@ -141,27 +144,6 @@ public class EditSquadController extends FxController{
         tblNameGroup.setCellFactory(TextFieldTableCell.forTableColumn());
     }
 
-    @FXML
-    public void clickAddStudent(ActionEvent actionEvent) {
-        if (!txtName.getText().isEmpty() && !txtSurname.getText().isEmpty() && !txtMiddleName.getText().isEmpty() && squadBox.getValue() != null) {
-            Student student = new Student();
-            student.setName(txtName.getText());
-            student.setSurname(txtSurname.getText());
-            student.setMiddleName(txtMiddleName.getText());
-            student.setSquad(squadBox.getValue());
-
-            DaoService<Student> studentDaoService = new StudentServiceImpl();
-            studentDaoService.saveEntity(student);
-            txtName.clear();
-            txtSurname.clear();
-            txtMiddleName.clear();
-
-            DaoService<StudentView> studentViewDaoService = new StudentViewServiceImpl();
-            studentTable.setItems(FXCollections.observableList(studentViewDaoService.getEntityList()));
-            studentTable.refresh();
-        }
-    }
-
     public void clickAddSquad(ActionEvent actionEvent) {
         DaoService<Squad> squadDaoService = new SquadServiceImpl();
         SquadViewServiceImpl squadViewService = new SquadViewServiceImpl();
@@ -182,6 +164,38 @@ public class EditSquadController extends FxController{
     }
 
     public void clickDeleteStudent(ActionEvent actionEvent) {
+        List<StudentView> studentViewList = new ArrayList<>(studentTable.getItems());
+        List<StudentView> studentViewDeleteList = new ArrayList<>();
 
+        for (int i = 0; i < studentViewList.size(); i++) {
+            if (studentViewList.get(i).getDelete().isSelected()) {
+                studentViewDeleteList.add(studentViewList.get(i));
+            }
+        }
+
+        StudentViewService studentViewService = new StudentViewServiceImpl();
+        for (int i = 0; i < studentViewDeleteList.size(); i++) {
+            studentViewService.deleteEntity(studentViewDeleteList.get(i));
+        }
+    }
+
+    public void clickAddStudent(ActionEvent actionEvent) {
+        if (!txtName.getText().isEmpty() && !txtSurname.getText().isEmpty() && !txtMiddleName.getText().isEmpty() && squadBox.getValue() != null) {
+            Student student = new Student();
+            student.setName(txtName.getText());
+            student.setSurname(txtSurname.getText());
+            student.setMiddleName(txtMiddleName.getText());
+            student.setSquad(squadBox.getValue());
+
+            DaoService<Student> studentDaoService = new StudentServiceImpl();
+            studentDaoService.saveEntity(student);
+            txtName.clear();
+            txtSurname.clear();
+            txtMiddleName.clear();
+
+            DaoService<StudentView> studentViewDaoService = new StudentViewServiceImpl();
+            studentTable.setItems(FXCollections.observableList(studentViewDaoService.getEntityList()));
+            studentTable.refresh();
+        }
     }
 }
