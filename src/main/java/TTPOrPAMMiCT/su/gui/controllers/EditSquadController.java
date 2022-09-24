@@ -11,7 +11,6 @@ import TTPOrPAMMiCT.su.service.view.SquadView.SquadViewServiceImpl;
 import TTPOrPAMMiCT.su.service.view.studentView.StudentViewService;
 import TTPOrPAMMiCT.su.service.view.studentView.StudentViewServiceImpl;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -34,7 +33,7 @@ public class EditSquadController extends FxController{
     @FXML
     private volatile TableView<StudentView> studentTable;
     @FXML
-    private TableColumn<StudentView, Button> tblStudeDelete;
+    private TableColumn<StudentView, Button> tblStudentDelete;
     @FXML
     private TableColumn<StudentView, String> tblSurname;
     @FXML
@@ -126,7 +125,7 @@ public class EditSquadController extends FxController{
         tblSurname.setCellValueFactory(new PropertyValueFactory<>("surname"));
         tblMiddleName.setCellValueFactory(new PropertyValueFactory<>("middleName"));
         tblSquad.setCellValueFactory(new PropertyValueFactory<>("squad"));
-        tblStudeDelete.setCellValueFactory(new PropertyValueFactory<>("delete"));
+        tblStudentDelete.setCellValueFactory(new PropertyValueFactory<>("delete"));
 
 
         tblSquadDelete.setCellValueFactory(new PropertyValueFactory<>("delete"));

@@ -18,7 +18,7 @@
                                            AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="300.0"
                                            AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                                     <columns>
-                                        <TableColumn fx:id="tblStudeDelete" maxWidth="100.0" minWidth="100.0"
+                                        <TableColumn fx:id="tblStudentDelete" maxWidth="100.0" minWidth="100.0"
                                                      prefWidth="100.0" styleClass="label-bright" text="удаление"/>
                                         <TableColumn fx:id="tblSurname" prefWidth="171.0" styleClass="label-bright"
                                                      text="фамилия"/>
