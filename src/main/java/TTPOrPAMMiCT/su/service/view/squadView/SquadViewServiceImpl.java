@@ -1,12 +1,12 @@
-package TTPOrPAMMiCT.su.service.view.SquadView;
+package TTPOrPAMMiCT.su.service.view.squadView;
 
+import TTPOrPAMMiCT.su.utility.database.HibernateUtil;
 import TTPOrPAMMiCT.su.dao.squad.SquadDao;
 import TTPOrPAMMiCT.su.dao.squad.SquadDaoImpl;
 import TTPOrPAMMiCT.su.entity.model.Squad;
 import TTPOrPAMMiCT.su.entity.view.SquadView;
 import TTPOrPAMMiCT.su.utility.converter.squad.SquadConverter;
 import TTPOrPAMMiCT.su.utility.converter.squadView.SquadViewConverter;
-import TTPOrPAMMiCT.su.utility.database.HibernateUtil;
 import org.hibernate.Session;
 
 import java.util.ArrayList;

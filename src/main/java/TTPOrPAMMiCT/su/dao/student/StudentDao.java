@@ -10,4 +10,5 @@ import java.util.List;
 public interface StudentDao extends Dao<Student> {
     List<Student> getEntityBySquad(Squad squad, Session session);
     void updateStudent (Student student, Session session);
+
 }

@@ -1,8 +1,6 @@
 package TTPOrPAMMiCT.su.entity.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -20,7 +18,7 @@ public class Squad {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "squad", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "squad", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Student> students;
 
     @Override

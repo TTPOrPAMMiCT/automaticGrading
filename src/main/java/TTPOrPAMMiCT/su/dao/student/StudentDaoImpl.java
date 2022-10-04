@@ -1,6 +1,5 @@
 package TTPOrPAMMiCT.su.dao.student;
 
-import TTPOrPAMMiCT.su.dao.Dao;
 import TTPOrPAMMiCT.su.entity.model.Squad;
 import TTPOrPAMMiCT.su.entity.model.Student;
 import org.hibernate.Session;

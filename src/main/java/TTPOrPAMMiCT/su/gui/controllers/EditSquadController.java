@@ -1,15 +1,15 @@
 package TTPOrPAMMiCT.su.gui.controllers;
 
+import TTPOrPAMMiCT.su.service.DaoService;
+import TTPOrPAMMiCT.su.service.student.StudentServiceImpl;
+import TTPOrPAMMiCT.su.service.view.squadView.SquadViewServiceImpl;
+import TTPOrPAMMiCT.su.service.view.studentView.StudentViewService;
+import TTPOrPAMMiCT.su.service.view.studentView.StudentViewServiceImpl;
 import TTPOrPAMMiCT.su.entity.model.Squad;
 import TTPOrPAMMiCT.su.entity.model.Student;
 import TTPOrPAMMiCT.su.entity.view.SquadView;
 import TTPOrPAMMiCT.su.entity.view.StudentView;
-import TTPOrPAMMiCT.su.service.DaoService;
 import TTPOrPAMMiCT.su.service.squad.SquadServiceImpl;
-import TTPOrPAMMiCT.su.service.student.StudentServiceImpl;
-import TTPOrPAMMiCT.su.service.view.SquadView.SquadViewServiceImpl;
-import TTPOrPAMMiCT.su.service.view.studentView.StudentViewService;
-import TTPOrPAMMiCT.su.service.view.studentView.StudentViewServiceImpl;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -46,6 +46,7 @@ public class EditSquadController extends FxController{
     @FXML
     private TableColumn<StudentView, Squad> tblSquad;
     ////////////////////////////////table
+
     ////////////////////////////////text field
     @FXML
     private TextField txtSurname;
@@ -56,6 +57,7 @@ public class EditSquadController extends FxController{
     @FXML
     public TextField txtNameSquad;
     ////////////////////////////////text field
+
     ////////////////////////////////button
     @FXML
     private Button addStudent;
@@ -63,7 +65,10 @@ public class EditSquadController extends FxController{
     public Button deleteStudent;
     @FXML
     private Button addSquad;
+    @FXML
+    public Button deleteSquad;
     ////////////////////////////////button
+
     ////////////////////////////////choice box
     @FXML
     private ChoiceBox<Squad> squadBox;
@@ -113,7 +118,7 @@ public class EditSquadController extends FxController{
         });
     }
 
-    private synchronized void setItemsInStudentTable() {
+    private void setItemsInStudentTable() {
         DaoService<StudentView> studentViewDaoService = new StudentViewServiceImpl();
         studentTable.setItems(FXCollections.observableList(studentViewDaoService.getEntityList()));
     }
@@ -139,7 +144,6 @@ public class EditSquadController extends FxController{
         tblSurname.setCellFactory(TextFieldTableCell.forTableColumn());
         tblName.setCellFactory(TextFieldTableCell.forTableColumn());
         tblMiddleName.setCellFactory(TextFieldTableCell.forTableColumn());
-        /*squad.setCellFactory(ChoiceBoxTableCell.forTableColumn());*/
 
         tblNameGroup.setCellFactory(TextFieldTableCell.forTableColumn());
     }
@@ -163,22 +167,6 @@ public class EditSquadController extends FxController{
         }
     }
 
-    public void clickDeleteStudent(ActionEvent actionEvent) {
-        List<StudentView> studentViewList = new ArrayList<>(studentTable.getItems());
-        List<StudentView> studentViewDeleteList = new ArrayList<>();
-
-        for (int i = 0; i < studentViewList.size(); i++) {
-            if (studentViewList.get(i).getDelete().isSelected()) {
-                studentViewDeleteList.add(studentViewList.get(i));
-            }
-        }
-
-        StudentViewService studentViewService = new StudentViewServiceImpl();
-        for (int i = 0; i < studentViewDeleteList.size(); i++) {
-            studentViewService.deleteEntity(studentViewDeleteList.get(i));
-        }
-    }
-
     public void clickAddStudent(ActionEvent actionEvent) {
         if (!txtName.getText().isEmpty() && !txtSurname.getText().isEmpty() && !txtMiddleName.getText().isEmpty() && squadBox.getValue() != null) {
             Student student = new Student();
@@ -193,9 +181,56 @@ public class EditSquadController extends FxController{
             txtSurname.clear();
             txtMiddleName.clear();
 
-            DaoService<StudentView> studentViewDaoService = new StudentViewServiceImpl();
-            studentTable.setItems(FXCollections.observableList(studentViewDaoService.getEntityList()));
+            StudentViewService studentViewService = new StudentViewServiceImpl();
+            studentTable.setItems(FXCollections.observableList(studentViewService.getEntityList()));
             studentTable.refresh();
+
+            SquadViewServiceImpl squadViewService = new SquadViewServiceImpl();
+            tblSquadByTabSquad.setItems(FXCollections.observableList(squadViewService.getEntityList()));
+            tblSquadByTabSquad.refresh();
         }
+    }
+
+    public void clickDeleteStudent(ActionEvent actionEvent) {
+        List<StudentView> studentViewList = new ArrayList<>(studentTable.getItems());
+        List<StudentView> studentViewDeleteList = new ArrayList<>();
+
+        for (int i = 0; i < studentViewList.size(); i++) {
+            if (studentViewList.get(i).getDelete().isSelected()) {
+                studentViewDeleteList.add(studentViewList.get(i));
+            }
+        }
+
+        StudentViewService studentViewService = new StudentViewServiceImpl();
+        for (int i = 0; i < studentViewDeleteList.size(); i++) {
+            studentViewService.deleteEntity(studentViewDeleteList.get(i));
+        }
+
+        studentTable.setItems(FXCollections.observableList(studentViewService.getEntityList()));
+        studentTable.refresh();
+    }
+
+    public void clickDeleteSquad(ActionEvent actionEvent) {
+        List<SquadView> squadViewList = new ArrayList<>(tblSquadByTabSquad.getItems());
+        List<SquadView> squadViewDeleteList = new ArrayList<>();
+
+        for (int i = 0; i < squadViewList.size(); i++) {
+            if (squadViewList.get(i).getDelete().isSelected()) {
+                squadViewDeleteList.add(squadViewList.get(i));
+            }
+        }
+
+        StudentViewService studentViewService = new StudentViewServiceImpl();
+        SquadViewServiceImpl squadViewService = new SquadViewServiceImpl();
+        for (int i = 0; i < squadViewDeleteList.size(); i++) {
+            squadViewService.deleteEntity(squadViewDeleteList.get(i));
+        }
+
+        DaoService<Squad> squadDaoService = new SquadServiceImpl();
+        squadBox.setItems(FXCollections.observableList(squadDaoService.getEntityList()));
+        studentTable.setItems(FXCollections.observableList(studentViewService.getEntityList()));
+        studentTable.refresh();
+        tblSquadByTabSquad.setItems(FXCollections.observableList(squadViewService.getEntityList()));
+        tblSquadByTabSquad.refresh();
     }
 }

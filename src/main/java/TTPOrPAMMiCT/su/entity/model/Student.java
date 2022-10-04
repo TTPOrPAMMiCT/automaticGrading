@@ -1,7 +1,6 @@
 package TTPOrPAMMiCT.su.entity.model;
 
 import lombok.Data;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -29,8 +28,7 @@ public class Student {
     @JoinColumn(name = "squad_id")
     private Squad squad;
 
-
-    @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "student", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Grade> gradeList;
 
 }

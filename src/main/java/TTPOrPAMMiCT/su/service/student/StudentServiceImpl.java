@@ -2,6 +2,7 @@ package TTPOrPAMMiCT.su.service.student;
 
 import TTPOrPAMMiCT.su.dao.student.StudentDao;
 import TTPOrPAMMiCT.su.dao.student.StudentDaoImpl;
+import TTPOrPAMMiCT.su.entity.model.Squad;
 import TTPOrPAMMiCT.su.entity.model.Student;
 import TTPOrPAMMiCT.su.utility.database.HibernateUtil;
 import org.hibernate.Session;
@@ -42,5 +43,13 @@ public class StudentServiceImpl implements StudentService {
         Session session = HibernateUtil.openSessionWithTransaction();
         studentDao.updateStudent(student, session);
         HibernateUtil.closeSessionWithTransaction(session);
+    }
+
+    @Override
+    public List<Student> getEntityListBySquad(Squad squad) {
+        Session session = HibernateUtil.openSession();
+        List<Student> studentList = studentDao.getEntityBySquad(squad, session);
+        HibernateUtil.closeSession(session);
+        return studentList;
     }
 }

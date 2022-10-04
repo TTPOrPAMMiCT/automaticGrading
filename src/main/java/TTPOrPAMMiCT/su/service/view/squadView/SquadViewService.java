@@ -1,4 +1,4 @@
-package TTPOrPAMMiCT.su.service.view.SquadView;
+package TTPOrPAMMiCT.su.service.view.squadView;
 
 import TTPOrPAMMiCT.su.entity.view.SquadView;
 import TTPOrPAMMiCT.su.service.DaoService;

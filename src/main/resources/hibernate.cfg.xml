@@ -14,9 +14,9 @@
 
 
         <!--mapping-->
-        <!--<mapping class="TTPOrPAMMiCT.su.entity.model.Squad"/>
-        <mapping class="TTPOrPAMMiCT.su.entity.model.Student"/>
-        <mapping class="TTPOrPAMMiCT.su.entity.model.Grade"/>-->
+        <!--<mapping class="model.entity.ttporpammict.su.Squad"/>
+        <mapping class="model.entity.ttporpammict.su.Student"/>
+        <mapping class="model.entity.ttporpammict.su.Grade"/>-->
         <!--mapping-->
 
 

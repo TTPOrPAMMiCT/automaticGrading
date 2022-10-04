@@ -1,7 +1,6 @@
 package TTPOrPAMMiCT.su.service.grade;
 
-
-import TTPOrPAMMiCT.su.dao.Dao;
+import TTPOrPAMMiCT.su.dao.grade.GradeDao;
 import TTPOrPAMMiCT.su.dao.grade.GradeDaoImpl;
 import TTPOrPAMMiCT.su.entity.model.Grade;
 import TTPOrPAMMiCT.su.utility.database.HibernateUtil;
@@ -11,7 +10,7 @@ import org.hibernate.Session;
 import java.util.List;
 
 public class GradeServiceImpl implements GradeService {
-    Dao<Grade> dao = new GradeDaoImpl();
+    GradeDao dao = new GradeDaoImpl();
 
     @Override
     public List<Grade> getEntityList() {
@@ -42,6 +41,4 @@ public class GradeServiceImpl implements GradeService {
         dao.saveEntity(grade, session);
         HibernateUtil.closeSessionWithTransaction(session);
     }
-
-
 }

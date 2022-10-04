@@ -1,10 +1,8 @@
 package TTPOrPAMMiCT.su.service.squad;
 
-import TTPOrPAMMiCT.su.dao.Dao;
 import TTPOrPAMMiCT.su.dao.squad.SquadDao;
 import TTPOrPAMMiCT.su.dao.squad.SquadDaoImpl;
 import TTPOrPAMMiCT.su.entity.model.Squad;
-import TTPOrPAMMiCT.su.service.DaoService;
 import TTPOrPAMMiCT.su.utility.database.HibernateUtil;
 import org.hibernate.Session;
 
@@ -22,7 +20,6 @@ public class SquadServiceImpl implements SquadService{
 
     @Override
     public List<Squad> getEntityList() {
-
         Session session = HibernateUtil.openSession();
         List squadList = dao.getEntityList(session);
         HibernateUtil.closeSession(session);

@@ -1,8 +1,8 @@
 package TTPOrPAMMiCT.su.utility.converter.squad;
 
+import TTPOrPAMMiCT.su.utility.converter.Convert;
 import TTPOrPAMMiCT.su.entity.model.Squad;
 import TTPOrPAMMiCT.su.entity.view.SquadView;
-import TTPOrPAMMiCT.su.utility.converter.Convert;
 
 public class SquadConverter implements Convert<SquadView, Squad> {
     @Override
