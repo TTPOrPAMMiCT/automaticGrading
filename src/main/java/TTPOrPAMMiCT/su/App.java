@@ -1,6 +1,7 @@
 package TTPOrPAMMiCT.su;
 
 import TTPOrPAMMiCT.su.gui.controllers.MainWindowController;
+import TTPOrPAMMiCT.su.utility.database.HibernateUtil;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;

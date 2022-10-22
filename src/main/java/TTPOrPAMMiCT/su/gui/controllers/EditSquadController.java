@@ -77,6 +77,7 @@ public class EditSquadController extends FxController{
 
     @Override
     void initialize() {
+
         setCellFactory();
         setProperties();
         setItemsInSquadBox();
@@ -91,6 +92,7 @@ public class EditSquadController extends FxController{
     }
 
     private void editTableColumns() {
+        System.out.println("editTableColumns");
 
         tblName.setOnEditCommit(event -> {
             StudentView student = event.getTableView().getItems().get(event.getTablePosition().getRow());
@@ -119,16 +121,19 @@ public class EditSquadController extends FxController{
     }
 
     private void setItemsInStudentTable() {
+        System.out.println("setItemsInStudentTable");
         DaoService<StudentView> studentViewDaoService = new StudentViewServiceImpl();
         studentTable.setItems(FXCollections.observableList(studentViewDaoService.getEntityList()));
     }
 
     private void setItemsInSquadBox() {
+        System.out.println("setItemsInSquadBox");
         DaoService<Squad> squadDaoService = new SquadServiceImpl();
         squadBox.setItems(FXCollections.observableList(squadDaoService.getEntityList()));
     }
 
     private void setProperties() {
+        System.out.println("setProperties");
         tblName.setCellValueFactory(new PropertyValueFactory<>("name"));
         tblSurname.setCellValueFactory(new PropertyValueFactory<>("surname"));
         tblMiddleName.setCellValueFactory(new PropertyValueFactory<>("middleName"));
@@ -141,6 +146,7 @@ public class EditSquadController extends FxController{
     }
 
     private void setCellFactory() {
+        System.out.println("setCellFactory");
         tblSurname.setCellFactory(TextFieldTableCell.forTableColumn());
         tblName.setCellFactory(TextFieldTableCell.forTableColumn());
         tblMiddleName.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -148,7 +154,8 @@ public class EditSquadController extends FxController{
         tblNameGroup.setCellFactory(TextFieldTableCell.forTableColumn());
     }
 
-    public void clickAddSquad(ActionEvent actionEvent) {
+    public void clickAddSquad(ActionEvent actionEvent)
+    {
         DaoService<Squad> squadDaoService = new SquadServiceImpl();
         SquadViewServiceImpl squadViewService = new SquadViewServiceImpl();
 

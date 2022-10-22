@@ -9,7 +9,9 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
 public class HibernateUtil {
-    private static SessionFactory sessionFactory = null;
+
+    private static SessionFactory sessionFactory;
+
     static {
         //////////////config
         Configuration configuration = new Configuration().configure();
@@ -19,7 +21,7 @@ public class HibernateUtil {
                 .addAnnotatedClass(Squad.class)
                 .addAnnotatedClass(Student.class)
                 .addAnnotatedClass(Grade.class);
-                //mapping
+        //mapping
 
         ////////////////////
 
@@ -32,7 +34,6 @@ public class HibernateUtil {
         SessionFactory sessionFactory1 = sessionFactory;
         Session session = sessionFactory1.openSession();
         session.beginTransaction();
-
         return session;
     }
 
@@ -44,11 +45,12 @@ public class HibernateUtil {
     public static Session openSession() {
         SessionFactory sessionFactory1 = sessionFactory;
         Session session = sessionFactory1.openSession();
-
         return session;
     }
 
     public static void closeSession(Session session) {
         session.close();
     }
+
+
 }
