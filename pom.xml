@@ -10,8 +10,8 @@
     <packaging>jar</packaging>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <spring.version>4.3.10.RELEASE</spring.version>
         <hibernate.version>5.0.2.Final</hibernate.version>
     </properties>
@@ -277,7 +277,6 @@
                             <classPath>
                                 <mainClass>TTPOrPAMMiCT.su.App</mainClass>
                                 <addDependencies>true</addDependencies>
-                                <!--<preCp>lib/slick2d-core-1.0.2.jar;lib/lwjgl-2.9.3.jar;lib/lwjgl-platform-2.9.3-natives-windows.jar;lib/jinput-2.0.5.jar;lib/jutils-1.0.0.jar;lib/jinput-platform-2.0.5-natives-windows.jar;lib/jorbis-0.0.17.jar</preCp>-->
                             </classPath>
                             <jre>
                                 <minVersion>1.8.0</minVersion>
