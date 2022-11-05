@@ -10,13 +10,12 @@ import org.hibernate.cfg.Configuration;
 
 public class HibernateUtil {
 
-    private static SessionFactory sessionFactory;
+    private final static SessionFactory sessionFactory;
 
     static {
         //////////////config
         Configuration configuration = new Configuration().configure();
         configuration
-
                 //mapping
                 .addAnnotatedClass(Squad.class)
                 .addAnnotatedClass(Student.class)

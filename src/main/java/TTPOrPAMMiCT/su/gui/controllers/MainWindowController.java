@@ -130,8 +130,12 @@ public class MainWindowController extends FxController {
     private void setValueStudentTable() {
         StudentViewService studentViewService = new StudentViewServiceImpl();
         boxSquad.setOnAction(actionEvent -> {
-            studentTable.setItems(FXCollections.observableList(studentViewService.getEntityListBySquad(boxSquad.getValue())));
-            studentTable.refresh();
+            try {
+                studentTable.setItems(FXCollections.observableList(studentViewService.getEntityListBySquad(boxSquad.getValue())));
+                studentTable.refresh();
+            } catch (Exception e) {
+                studentTable.setItems(FXCollections.observableList(studentViewService.getEntityList()));
+            }
         });
     }
 
