@@ -268,49 +268,6 @@
                 </executions>
             </plugin>
 
-            <plugin>
-                <groupId>com.akathist.maven.plugins.launch4j</groupId>
-                <artifactId>launch4j-maven-plugin</artifactId>
-                <version>1.7.15</version>
-                <executions>
-                    <execution>
-                        <id>l4j-clui</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>launch4j</goal>
-                        </goals>
-                        <configuration>
-                            <headerType>gui</headerType>
-                            <outfile>${project.build.directory}/${project.artifactId}-${project.version}.exe</outfile>
-                            <jar>${project.build.directory}/Automating_Grading-1.0-SNAPSHOT-spring.jar</jar>
-                            <icon>${project.build.directory}/../src/main/resources/icon.ico</icon>
-                            <errTitle>encc</errTitle>
-                            <classPath>
-                                <mainClass>TTPOrPAMMiCT.su.App</mainClass>
-                                <addDependencies>true</addDependencies>
-                            </classPath>
-                            <jre>
-                                <minVersion>1.8.0</minVersion>
-                                <opts>
-                                    <opt>-Djava.library.path=lib</opt>
-                                </opts>
-                            </jre>
-                            <!--<versionInfo>
-                                <fileVersion>${project.version}.0</fileVersion>
-                                <txtFileVersion>${versionType}</txtFileVersion>
-                               &lt;!&ndash; <fileDescription>Global Game Jam 2018 by RPH Studio</fileDescription>
-                                <copyright>All Rights Reserved</copyright>&ndash;&gt;
-                                <productVersion>${project.version}.0</productVersion>
-                                <txtProductVersion>${versionType}</txtProductVersion>
-                                &lt;!&ndash;<productName>chess</productName>
-                                <internalName>chess</internalName>&ndash;&gt;
-                                <originalFilename>${project.artifactId}-${project.version}.exe</originalFilename>
-                            </versionInfo>-->
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
         </plugins>
     </build>
 
